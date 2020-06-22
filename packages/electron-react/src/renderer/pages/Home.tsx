@@ -1,33 +1,11 @@
 import React, { useState } from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
-import RealMDashboard from "./RealMDashboard";
-import RxJsDashboard from "./RxDbDashboard";
-import SQLiteDashboard from "./SQLiteDashboard";
 import { version } from "./../../../package.json";
 import { IDatabaseMode } from "../components/DatabaseDetail";
 import logo from "../logo.svg";
+import FireDashboard from "./FireDashboard";
 
 export function Home() {
-  const [databaseMode, setDatabaseMode] = useState<IDatabaseMode>("RxDB");
-
-  let dashboard = <></>;
-
-  switch (databaseMode) {
-    case "RxDB":
-      dashboard = <RxJsDashboard />;
-      break;
-    case "Realm":
-      dashboard = <RealMDashboard />;
-      break;
-    case "SQLite":
-      dashboard = <SQLiteDashboard />;
-      break;
-
-    default:
-      dashboard = <></>;
-      break;
-  }
-
   return (
     <>
       <header>
@@ -51,30 +29,7 @@ export function Home() {
           </div>
           <div>
             <Nav className="pr-5">
-              <Nav.Link
-                active={databaseMode === "RxDB"}
-                onClick={() => {
-                  setDatabaseMode("RxDB");
-                }}
-              >
-                RxDB
-              </Nav.Link>
-              <Nav.Link
-                active={databaseMode === "Realm"}
-                onClick={() => {
-                  setDatabaseMode("Realm");
-                }}
-              >
-                Realm
-              </Nav.Link>
-              <Nav.Link
-                active={databaseMode === "SQLite"}
-                onClick={() => {
-                  setDatabaseMode("SQLite");
-                }}
-              >
-                SQLite
-              </Nav.Link>
+              <Nav.Link active>SqLite</Nav.Link>
             </Nav>
           </div>
         </Navbar>
@@ -82,9 +37,9 @@ export function Home() {
       <main>
         <Container>
           <Card className="p-3 mb-5 text-center text-light bg-dark">
-            <h1> Electron - React - {databaseMode}</h1>
+            <h1> Electron - React - Firestore Sync</h1>
           </Card>
-          {dashboard}
+          <FireDashboard />
         </Container>
       </main>
       <footer>
