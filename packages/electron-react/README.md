@@ -1,19 +1,11 @@
-# Electron React (Typescript) with RxDB, Realm & SQLite
+# Firebase Firestore -> SQLite , selective sync (Electron React App in TypeScript)
 
-> Demo of Native Databases with Electron and ReactJS. Realm, SQLite and RxDB ( with LevelDB/IndexedDB/InMemory adapters)
+> Electron React App in TypeScript
 
-- The electron & react part is bootstraped with [`electron-webpack-typescript-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) which is based in `electron-webpack`.
-
-  - Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
-  - HMR for both `renderer` and `main` processes
-  - Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
-  - Use of [`electron-builder`](https://github.com/electron-userland/electron-builder) to package and build a distributable electron application
-
-  Make sure to check out [`electron-webpack`'s documentation](https://webpack.electron.build/) for more details.
-
-- Implemented RxDB with native adapters of LevelDB & NodeSQL
-- Implemented native [Realm database](https://github.com/realm/realm-js)
-- Implemented native [SQLite3 database](https://github.com/mapbox/node-sqlite3)
+* bootstraped with [`electron-webpack-typescript-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) which is based in `electron-webpack`.
+* Uses SQLite as local databse 
+* Uses Firestore as remote database
+* Sync selected data from Firestore to Local SQLite databse, for efficient offline support and permomance improvement 
 
 ## Getting Started
 
@@ -22,7 +14,7 @@ Simply fork/clone this repository, install dependencies, and try `yarn dev`.
 ```bash
 # clone thee repo
 mkdir electron-react-dbs && cd electron-react-dbs
-git clone https://github.com/vazra/electron-react-ts-rxdb-realm-sqlite.git
+git clone https://github.com/vazra/sqlite-firestore-sync.git
 cd electron-react-dbs
 
 # install dependencies
@@ -41,8 +33,8 @@ The use of the [yarn](https://yarnpkg.com/) package manager is **strongly** reco
 
 1. Can I use this as a boilerplate for my electron-react app with native databases
 
-   Ans. Yes, you can. this project itself is bootstrapped with [`electron-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) You can either take it as the base project or fork this repo and remove unwanted db codes. The code is structured in such a way that any db code can be removed without much effort.
+   Ans. Yes, you can. this project itself is bootstrapped with [`electron-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) You can either take it as the base project or fork this repo and remove unwanted db codes. 
 
-For any bugs or requests create issues [here](https://github.com/vazra/electron-react-ts-rxdb-realm-sqlite/issues)
+For any bugs or requests create issues [here](https://github.com/vazra/sqlite-firestore-sync/issues)
 
 Pull requests are also invited. :rocket:
