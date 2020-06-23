@@ -1,6 +1,6 @@
-# Firebase Firestore -> SQLite , selective sync (Electron React App in TypeScript)
+# Firestore SQLite Sync
 
-> Electron React App in TypeScript
+> Electron - React App in TypeScript with selective data sync from Firebase firestore to local SQLite DB.
 
 * bootstraped with [`electron-webpack-typescript-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) which is based in `electron-webpack`.
 * Uses SQLite as local databse 
