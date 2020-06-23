@@ -37,7 +37,7 @@ export function Home() {
       <main>
         <Container>
           <Card className="p-3 mb-5 text-center text-light bg-dark">
-            <h1> Electron - React - Firestore Sync</h1>
+            <h1> SQLite - Firestore Sync</h1>
           </Card>
           <FireDashboard />
         </Container>

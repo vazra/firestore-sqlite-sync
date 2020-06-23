@@ -24,9 +24,12 @@ const columns = [
     text: "Area",
   },
 ];
-const collectionName = "test_users";
 
-export function LocalTable() {
+interface ILocalTable {
+  collection: string;
+}
+
+export function LocalTable({ collection }: ILocalTable) {
   const [users, setUsers] = useState<UserDocType[]>([]);
 
   useEffect(() => {

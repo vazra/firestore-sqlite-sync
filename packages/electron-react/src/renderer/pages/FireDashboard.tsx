@@ -21,97 +21,64 @@ import {
 import AddUserToFire from "../components/AddUserToFire";
 import FireTable from "../components/FireTable";
 import LocalTable from "../components/LocalTable";
+const tableList = ["table1", "tabl2", "table3"];
 
 export function FireDashboard() {
-  const [users, setUsers] = useState<UserDocType[]>();
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [addCount, setAddCount] = useState<number>(100);
-  const [progress, setProgress] = useState<number>(0);
-  const [sizePerPage, setSizePerPage] = useState<number>(10);
-  const [page, setPage] = useState<number>(1);
-  const [isLoading, setLoading] = useState<[boolean, string]>([false, ""]);
-  const [latestReadTime, setLatestReadTime] = useState<[number, number]>([
-    334.54,
-    20,
-  ]);
-  const [latestWriteTime, setLatestWriteTime] = useState<[number, number]>([
-    334.54,
-    20,
-  ]);
-
-  useEffect(() => {
-    // create the databse
-    async function anyNameFunction() {
-      setLoading([true, "initializing database"]);
-      await addUserstoDB(100, setProgress, setLatestWriteTime);
-      setLoading([false, ""]);
-    }
-    anyNameFunction();
-  }, []);
-
-  const reloadUI = async () => {
-    setUsers([]);
-    setProgress(0);
-    setTotalCount(0);
-    setPage(1);
-    setSizePerPage(10);
-    getDocsAndCount(sizePerPage, page);
-  };
-
-  async function getDocsAndCount(perPageCount: number, pageNo: number) {
-    const count = await getCount();
-    setTotalCount(count);
-    const newUsers = await getDocs(perPageCount, pageNo, setLatestReadTime);
-    setUsers(newUsers);
-  }
-
-  useEffect(() => {
-    console.log("pagechanged - ", "getDocsAndCount", page, sizePerPage);
-    getDocsAndCount(sizePerPage, page);
-  }, [page, sizePerPage]);
-
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setAddCount(+e.target.value);
-    setProgress(0);
-  };
-
-  const handleAddSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setProgress(0);
-    await addUserstoDB(addCount, setProgress, setLatestWriteTime);
-    setAddCount(100);
-    getDocsAndCount(sizePerPage, page);
-  };
-
-  const handleTableChange = (
-    type: TableChangeType,
-    { page, sizePerPage }: TableChangeState<any>
-  ) => {
-    setPage(page);
-    setSizePerPage(sizePerPage);
-  };
-
-  const progressInstance = (
-    <ProgressBar now={progress} label={`${progress}%`} />
-  );
+  const [tableName, setTableName] = useState<string>(tableList[0]);
   return (
     <>
+      <Row>
+        <Col>
+          <div className="pb-3 mb-3 d-flex justify-content-center">
+            <ButtonGroup aria-label="Adapters">
+              {tableList.map((tname) => (
+                <Button
+                  key={tname}
+                  onClick={async () => {
+                    setTableName(tname);
+                  }}
+                  variant={tableName === tname ? "info" : "outline-info"}
+                >
+                  {tname}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </div>
+        </Col>
+      </Row>
       <Row>
         <Col>
           <h3>FireStore Data</h3>
         </Col>
         <Col>
-          <h3>Local Data</h3>
+          <h3>Local SQLite Data</h3>
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <FireTable />
+          <FireTable collection={tableName} />
         </Col>
         <Col>
-          <LocalTable />
+          <LocalTable collection={tableName} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            * This table syncs with Firestore using realtime updates, so the
+            latest data available in firestore will be shown here. <br />* Cells
+            are editable, click on any cells to edit, the edit will be reflected
+            in firestore <br />* deleting a row will create a 'deleted' field
+            for the row in the firestore. and will not be fetched
+          </p>
+        </Col>
+        <Col>
+          <p>
+            * This table shows data from local sqlite database, it may not be
+            realtime, so to view the latest data use 'reload' button <br />* to
+            start the sync process from firestore to sqlite db use 'sync' button
+          </p>
         </Col>
       </Row>
     </>

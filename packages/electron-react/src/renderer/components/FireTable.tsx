@@ -6,48 +6,54 @@ import { fdb } from "../service/firestore/app";
 import { Button, Card, Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
-const collectionName = "test_users";
+import { Interface } from "readline";
 
-const deleteFormatter = (cell, row) => (
-  <span
-    onClick={() => {
-      fdb.collection(collectionName).doc(cell).delete();
-    }}
-  >
-    ❌
-  </span>
-);
+interface IFireTable {
+  collection: string;
+}
 
-const columns = [
-  {
-    dataField: "name",
-    text: "Name",
-  },
-  {
-    dataField: "phone",
-    text: "Phone No",
-  },
-  {
-    dataField: "address",
-    text: "Address",
-  },
-  {
-    dataField: "area",
-    text: "Area",
-  },
-  {
-    dataField: "id",
-    text: "Delete",
-    formatter: deleteFormatter,
-  },
-];
-
-export function FireTable() {
+export function FireTable({ collection }: IFireTable) {
   const [users, setUsers] = useState<UserDocType[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  const deleteFormatter = (cell, row) => (
+    <span
+      onClick={async () => {
+        setLoading(true);
+        await fdb.collection(collection).doc(cell).update({ del: true });
+        setLoading(false);
+      }}
+    >
+      ❌
+    </span>
+  );
+
+  const columns = [
+    {
+      dataField: "name",
+      text: "Name",
+    },
+    {
+      dataField: "phone",
+      text: "Phone No",
+    },
+    {
+      dataField: "address",
+      text: "Address",
+    },
+    {
+      dataField: "area",
+      text: "Area",
+    },
+    {
+      dataField: "id",
+      text: "Delete",
+      formatter: deleteFormatter,
+    },
+  ];
+
   useEffect(() => {
-    return fdb.collection(collectionName).onSnapshot(function (querySnapshot) {
+    return fdb.collection(collection).onSnapshot(function (querySnapshot) {
       var newUsers = [];
       querySnapshot.forEach(function (doc) {
         const userDoc = { id: doc.id, ...doc.data() };
@@ -67,7 +73,7 @@ export function FireTable() {
     console.log("Editing id ", rowId);
     const updateDoc = {};
     updateDoc[dataField] = newValue;
-    await fdb.collection(collectionName).doc(rowId).update(updateDoc);
+    await fdb.collection(collection).doc(rowId).update(updateDoc);
     setLoading(false);
   };
 
