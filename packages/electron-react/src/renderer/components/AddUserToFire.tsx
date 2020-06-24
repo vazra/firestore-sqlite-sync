@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Card,
-  Button,
-  Spinner,
-  Col,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Button, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { UserDocType } from "../types";
 import { createAUser } from "../utils";
 import { addAUser } from "../service/firestore/users";

@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import BootstrapTable, {
+  TableChangeType,
+  TableChangeState,
+} from "react-bootstrap-table-next";
 import { UserDocType } from "../types";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { fdb } from "../service/firestore/app";
-import { Button, Card, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
-import { Interface } from "readline";
+import { dataFromSnapshot } from "../service/firestore/helpers";
 
 interface IFireTable {
   collection: string;
 }
 
 export function FireTable({ collection }: IFireTable) {
-  const [users, setUsers] = useState<UserDocType[]>([]);
+  const [users, setUsers] = useState<Map<string, any>[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const deleteFormatter = (cell, row) => (
+  const deleteFormatter = (cell: string | undefined, row: any) => (
     <span
       onClick={async () => {
         setLoading(true);
@@ -54,24 +57,24 @@ export function FireTable({ collection }: IFireTable) {
 
   useEffect(() => {
     return fdb.collection(collection).onSnapshot(function (querySnapshot) {
-      var newUsers = [];
+      var newUsers: Map<string, any>[] = [];
       querySnapshot.forEach(function (doc) {
-        const userDoc = { id: doc.id, ...doc.data() };
+        const userDoc = dataFromSnapshot(doc); //{ id: doc.id, ...doc.data() };
         newUsers.push(userDoc);
         console.log("userDoc :", userDoc);
       });
       setUsers(newUsers);
-      console.log(`Updated ${querySnapshot.length} users `);
+      console.log(`Updated ${querySnapshot.docs.length} users `);
     });
   }, []);
 
   const handleTableChange = async (
-    type,
-    { data, cellEdit: { rowId, dataField, newValue } }
+    type: TableChangeType,
+    { data, cellEdit: { rowId, dataField, newValue } }: TableChangeState<any>
   ) => {
     setLoading(true);
     console.log("Editing id ", rowId);
-    const updateDoc = {};
+    const updateDoc: { [key: string]: any } = {};
     updateDoc[dataField] = newValue;
     await fdb.collection(collection).doc(rowId).update(updateDoc);
     setLoading(false);

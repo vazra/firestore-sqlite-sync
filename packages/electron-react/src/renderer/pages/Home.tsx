@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
 import { version } from "./../../../package.json";
-import { IDatabaseMode } from "../components/DatabaseDetail";
 import logo from "../logo.svg";
 import FireDashboard from "./FireDashboard";
 
