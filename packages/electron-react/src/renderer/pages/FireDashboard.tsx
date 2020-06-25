@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Row,
-  Col,
-  Form,
-  ProgressBar,
-  Spinner,
-  ButtonGroup,
-  Card,
-} from "react-bootstrap";
-import RemoteTable from "../components/RemoteTable";
-import { TableChangeType, TableChangeState } from "react-bootstrap-table-next";
-import { UserDocType } from "../types";
-import {
-  addUserstoDB,
-  getCount,
-  getDocs,
-  deleteAllUsers,
-} from "../databases/db/service";
-import AddUserToFire from "../components/AddUserToFire";
+import React, { useState } from "react";
+import { Button, Row, Col, ButtonGroup } from "react-bootstrap";
+// import { UserDocType } from "../types";
 import FireTable from "../components/FireTable";
 import LocalTable from "../components/LocalTable";
-const tableList = ["table1", "tabl2", "table3"];
+const tableList = ["customers", "products"];
 
 export function FireDashboard() {
   const [tableName, setTableName] = useState<string>(tableList[0]);

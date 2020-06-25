@@ -1,46 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import { UserDocType } from "../types";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { fdb } from "../service/firestore/app";
-import { getDocs } from "../databases/db/service";
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { IDoc } from "../service/sync/firesync";
+import { getAllFromTable } from "../service/sqlite";
 
-const columns = [
-  {
-    dataField: "name",
-    text: "Name",
-  },
-  {
-    dataField: "phone",
-    text: "Phone No",
-  },
-  {
-    dataField: "address",
-    text: "Address",
-  },
-  {
-    dataField: "area",
-    text: "Area",
-  },
-];
+export const ColumnNames: IDoc = {
+  name: "Name",
+  phone: "Phone No",
+  address: "Address",
+  area: "Area",
+  id: "ID",
+  pid: "Product ID",
+  category: "Category",
+};
 
 interface ILocalTable {
   collection: string;
 }
 
 export function LocalTable({ collection }: ILocalTable) {
-  const [users, setUsers] = useState<UserDocType[]>([]);
+  const [items, setItems] = useState<IDoc[]>([]);
+
+  const columns = useMemo(() => {
+    // get colemns from the first item keys
+    if (items.length > 0) {
+      const keys = Object.keys(items[0]);
+      return keys.map((akey) => ({
+        dataField: akey,
+        text: ColumnNames[akey],
+      }));
+    }
+    return [];
+  }, [items]);
 
   useEffect(() => {
-    getDocs(1000, 1).then((newUsers) => {
-      setUsers(newUsers);
+    getAllFromTable(collection).then((newUsers) => {
+      setItems(newUsers);
     });
-  }, []);
+  }, [collection]);
 
   const reloadTable = () => {
-    getDocs(1000, 1).then((newUsers) => {
-      setUsers(newUsers);
+    getAllFromTable(collection).then((newUsers) => {
+      setItems(newUsers);
     });
   };
 
@@ -56,12 +58,14 @@ export function LocalTable({ collection }: ILocalTable) {
           Reload
         </Button>
       </div>
-      <BootstrapTable
-        keyField="id"
-        data={users}
-        columns={columns}
-        pagination={paginationFactory({ sizePerPage: 5 })}
-      />
+      {columns && columns.length > 0 && (
+        <BootstrapTable
+          keyField="id"
+          data={items}
+          columns={columns}
+          pagination={paginationFactory({ sizePerPage: 5 })}
+        />
+      )}
     </div>
   );
 }
