@@ -1,9 +1,11 @@
+import { IDoc } from "../sync/firesync";
+
 export const dataFromSnapshot = <T>(
   snapshot: firebase.firestore.DocumentData
-): Map<string, any> => {
+): IDoc | undefined => {
   if (!snapshot.exists) {
     console.log(`404! : dataFromSnapshot(${snapshot.id}) : NOT FOUND!`);
-    return new Map();
+    return undefined;
   }
   const data = snapshot.data() as any;
 

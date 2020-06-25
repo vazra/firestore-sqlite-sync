@@ -18,12 +18,13 @@ const app = firebase.initializeApp(firebaseConfig);
 
 // console.log('kkk : initializing firestore ')
 
-const fdb = firebase.firestore(app);
+const fdb: firebase.firestore.Firestore = firebase.firestore(app);
 fdb.settings({
   cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
 });
 
-const timeStamp = firebase.firestore.FieldValue.serverTimestamp;
+const serverTime = firebase.firestore.FieldValue.serverTimestamp;
+const Timestamp = firebase.firestore.Timestamp;
 const { increment } = firebase.firestore.FieldValue;
 
 fdb.enablePersistence().catch(function (err) {
@@ -40,5 +41,7 @@ fdb.enablePersistence().catch(function (err) {
   }
 });
 
+type IFireDB = firebase.firestore.Firestore;
+
 export default app;
-export { fdb, timeStamp, increment };
+export { fdb, serverTime, increment, IFireDB, Timestamp };
