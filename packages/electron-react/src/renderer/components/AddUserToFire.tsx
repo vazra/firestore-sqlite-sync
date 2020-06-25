@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { UserDocType } from "../types";
-import { createAUser } from "../utils";
-import { addAUser } from "../service/firestore/users";
+import { addToFire } from "../service/firestore/users";
+import { IDoc } from "../service/sync/firesync";
+import faker from "faker";
+interface IAddUserToFire {
+  tableName: string;
+}
 
-// interface IAddUserToFire {
-//   children: React.ReactNode;
-// }
+const crateDummy = (tableName: string) => {
+  if (tableName === "customers") {
+    console.log("Creating a new dummy customer");
+    var name = faker.name.findName();
+    var phone = faker.phone.phoneNumber();
+    var address = faker.address.streetAddress();
+    var area = faker.address.countryCode();
+    return { name, phone, address, area };
+  } else if (tableName === "products") {
+    console.log("Creating a new dummy product");
+    var name = faker.commerce.productName();
+    var category = faker.commerce.productMaterial();
+    var description = faker.lorem.slug(5);
+    var pid = faker.random.alphaNumeric(8);
+    return { name, category, pid, description };
+  } else {
+    return { name: faker.name.findName() };
+  }
+};
 
-export function AddUserToFire() {
-  const [newUSer, setNewUser] = useState<UserDocType>(createAUser());
+export function AddUserToFire({ tableName }: IAddUserToFire) {
+  const [newItem, setNewItem] = useState<IDoc>(crateDummy(tableName));
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setNewItem(crateDummy(tableName));
+  }, [tableName]);
 
   return (
     <OverlayTrigger
@@ -19,10 +42,12 @@ export function AddUserToFire() {
           <div>
             <h6>New User</h6>
             <p>
-              Name : {newUSer.name} <br />
-              Phone : {newUSer.phone} <br />
-              Address : {newUSer.address} {newUSer.name} <br />
-              Area : {newUSer.area} <br />
+              {Object.keys(newItem).map((aKey) => (
+                <span key={aKey}>
+                  {aKey} : {newItem[aKey]}
+                  <br />
+                </span>
+              ))}
             </p>
           </div>
         </Tooltip>
@@ -35,8 +60,8 @@ export function AddUserToFire() {
           <Button
             onClick={async () => {
               setLoading(true);
-              await addAUser(createAUser());
-              setNewUser(createAUser());
+              await addToFire(tableName, newItem);
+              setNewItem(crateDummy(tableName));
               setLoading(false);
             }}
           >
