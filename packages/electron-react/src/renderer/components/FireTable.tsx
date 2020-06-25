@@ -1,72 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import BootstrapTable, {
   TableChangeType,
   TableChangeState,
 } from "react-bootstrap-table-next";
-import { UserDocType } from "../types";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { fdb } from "../service/firestore/app";
 import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { dataFromSnapshot } from "../service/firestore/helpers";
+import { IDoc } from "../service/sync/firesync";
+import { ColumnNames } from "./LocalTable";
+import { deleteAnItem, updateAnItem } from "../service/firestore/users";
 
 interface IFireTable {
   collection: string;
 }
 
 export function FireTable({ collection }: IFireTable) {
-  const [users, setUsers] = useState<Map<string, any>[]>([]);
+  const [items, setItems] = useState<IDoc[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const deleteFormatter = (cell: string | undefined, row: any) => (
     <span
       onClick={async () => {
         setLoading(true);
-        await fdb.collection(collection).doc(cell).update({ del: true });
+        cell && deleteAnItem(collection, cell);
         setLoading(false);
       }}
     >
       ❌
     </span>
   );
+  type IColumn = {
+    dataField: string;
+    text: string;
+    formatter?: (cell: string | undefined, row: any) => JSX.Element;
+  };
 
-  const columns = [
-    {
-      dataField: "name",
-      text: "Name",
-    },
-    {
-      dataField: "phone",
-      text: "Phone No",
-    },
-    {
-      dataField: "address",
-      text: "Address",
-    },
-    {
-      dataField: "area",
-      text: "Area",
-    },
-    {
-      dataField: "id",
-      text: "Delete",
-      formatter: deleteFormatter,
-    },
-  ];
+  const columns = useMemo(() => {
+    // assuming all items have same keys , get colemns from the first item keys
+    if (items.length > 0) {
+      // do not show "id","ut","ct" columns
+      const removeList = ["id", "ut", "ct"];
+      const keys = Object.keys(items[0]).filter(
+        (aKey) => !removeList.includes(aKey)
+      );
+
+      const theColList: IColumn[] = keys.map((akey) => ({
+        dataField: akey,
+        text: ColumnNames[akey] || akey,
+      }));
+      theColList.push({
+        dataField: "id",
+        text: "Delete",
+        formatter: deleteFormatter,
+      });
+      return theColList;
+    }
+    return [];
+  }, [items]);
 
   useEffect(() => {
     return fdb.collection(collection).onSnapshot(function (querySnapshot) {
-      var newUsers: Map<string, any>[] = [];
+      var newItemList: IDoc[] = [];
       querySnapshot.forEach(function (doc) {
-        const userDoc = dataFromSnapshot(doc); //{ id: doc.id, ...doc.data() };
-        newUsers.push(userDoc);
-        console.log("userDoc :", userDoc);
+        const itemDoc = dataFromSnapshot(doc); //{ id: doc.id, ...doc.data() };
+        if (itemDoc?.ut) itemDoc.ut = itemDoc.ut.toDate().toString();
+        if (itemDoc?.ct) itemDoc.ct = itemDoc.ct.toDate().toString();
+        itemDoc && newItemList.push(itemDoc);
       });
-      setUsers(newUsers);
+      setItems(newItemList);
       console.log(`Updated ${querySnapshot.docs.length} users `);
     });
-  }, []);
+  }, [collection]);
 
   const handleTableChange = async (
     type: TableChangeType,
@@ -76,29 +83,31 @@ export function FireTable({ collection }: IFireTable) {
     console.log("Editing id ", rowId);
     const updateDoc: { [key: string]: any } = {};
     updateDoc[dataField] = newValue;
-    await fdb.collection(collection).doc(rowId).update(updateDoc);
+    await updateAnItem(collection, rowId, updateDoc);
     setLoading(false);
   };
 
   return (
     <div>
       <div className="py-3">
-        <AddUserToFire />
+        <AddUserToFire tableName={collection} />
         {isLoading && (
           <Spinner className="p-3" animation="grow" variant="warning" />
         )}
       </div>
-      <BootstrapTable
-        remote={{ cellEdit: true }}
-        keyField="id"
-        data={users}
-        columns={columns}
-        cellEdit={cellEditFactory({
-          mode: "click",
-        })}
-        pagination={paginationFactory({ sizePerPage: 5 })}
-        onTableChange={handleTableChange}
-      />
+      {columns && columns.length > 0 && (
+        <BootstrapTable
+          remote={{ cellEdit: true }}
+          keyField="id"
+          data={items}
+          columns={columns}
+          cellEdit={cellEditFactory({
+            mode: "click",
+          })}
+          pagination={paginationFactory({ sizePerPage: 5 })}
+          onTableChange={handleTableChange}
+        />
+      )}
     </div>
   );
 }
