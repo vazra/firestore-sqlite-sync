@@ -1,19 +1,21 @@
-import { timeStamp } from "console";
-import { fdb } from "../firestore/app";
-import { createTables, db, TABLE_SYNC_STATUS } from "../sqlite/database";
-export const CNAME_CUSTOMERS = "customers";
-export const CNAME_SETTINGS = "settings";
+import {
+  createTables,
+  db,
+  insertDataToTable,
+  getLastUpdatedTimeFromDB,
+  saveLastUpdatedTimeToDB,
+} from "./sqlite";
 import Knex from "knex";
-import { dataFromSnapshot } from "../firestore/helpers";
+import { IFireDB, Timestamp, dataFromSnapshot } from "./firestore";
+import { ISyncConfig, ICollectionDetails, IDoc } from "./types";
+import { DOC_NAME_LAST_UPDATED, CNAME_SETTINGS } from "./constants";
 
-const DEFAULT_SYNC_CONFIG = {
+const DEFAULT_SYNC_CONFIG: ISyncConfig = {
   enabled: true,
+  dbpath: "./sync.sqlite",
+  updatedTimeKey: "ut",
   cooldownTime: 10000, // time in milliseconds between sync the same collection
-  collections: {
-    // collection name and , name of fields to be synced
-    customer: ["name", "phone", "address"],
-    products: ["name", "description"],
-  },
+  collections: {},
 };
 
 // sample object in the settings collection
@@ -21,131 +23,155 @@ const DEFAULT_SYNC_CONFIG = {
 //   "collection1": 'timeStamp'
 //   "collection2": 'timeStamp'
 // }
-// --- the last updated time will be updated on each udpate/create request in the specific collection only for selected fields.
-// Note: You can either use this method or decied when you want sync your data based on how you are consuming the data, and how often it will be udpated.
-
-export type ICollectionDetails = {
-  list: string[];
-  fields: { [key: string]: string[] };
-};
+// --- the last updated time will be updated on each update/create request in the specific collection only for selected fields.
+// Note: You can either use this method or decided when you want sync your data based on how you are consuming the data, and how often it will be updated.
 
 // sync all services
 class Sync {
   // configurations
-  config = DEFAULT_SYNC_CONFIG;
+  config: ISyncConfig;
   // sync database
   db: Promise<Knex<any, unknown[]>>;
 
   watchingCollections: ICollectionDetails;
 
-  lastUpdated: Map<string, any> = new Map(); // { [key: string]: any } = {};
+  lastUpdated: IDoc = {}; // { [key: string]: any } = {};
 
-  listner: () => void; // TODO: (test)what if the listner creation failed once
+  listner: () => void; // TODO: (test)what if the listener creation failed once
+  firedb: IFireDB;
 
-  constructor() {
-    // setup db for synx
-    this.listner = this._createSyncListner();
-
+  constructor(config: ISyncConfig, firedb: IFireDB) {
     // setting up watching collections
+    // TODO : (later) add a test here to make sure that the firebase db is initiated correctly.
+
+    // TODO : (test) make sure that default config values are overwritten, when provided in the config
+    this.config = { ...DEFAULT_SYNC_CONFIG, ...config };
+    this.firedb = firedb;
+
+    // fetching watching collections from config
     this.watchingCollections = {
       list: Object.keys(this.config.collections),
       fields: this.config.collections,
     };
-    this.db = this.setupSyncDB(this.watchingCollections);
+
+    // setup db for sync
+    this.db = this._setupSyncDB();
+    this.listner = this._createSyncListner();
   }
 
-  // create and set a realtime listner from firestore
+  // create and set a realtime listener from firestore
   private _createSyncListner() {
-    // check last up
-    return fdb
-      .collection(CNAME_SETTINGS)
-      .doc("lastUpdated")
-      .onSnapshot((doc) => {
-        // TODO : Implement deboubse for sync call
-        const newDoc: Map<string, any> = dataFromSnapshot(doc) || new Map();
+    // TODO : (test) check what happens if there is no internet connection when turning on the app
+    // if there is a listener on the object.. remove it before adding new.
+    this.listner && this.listner();
 
-        for (const aTable of this.watchingCollections.list) {
-          if (!newDoc.get(aTable)) {
-            console.warn(
-              `table : ${aTable} is not availabe in the lastupdated doc from server`
-            );
-            this.lastUpdated.set(aTable, 0);
-          } else if (newDoc.get(aTable) > this.lastUpdated.get(aTable)) {
-            this.lastUpdated.set(aTable, 0);
-            this._syncTable(aTable);
-          } else {
-            console.log(
-              `table : ${aTable} is uptodate ${newDoc.get(
-                aTable
-              )} -> ${this.lastUpdated.get(aTable)}`
-            );
-          }
+    const lastUpdatedRef = this.firedb
+      .collection(this.config.settingsCollectionName || CNAME_SETTINGS)
+      .doc(DOC_NAME_LAST_UPDATED);
+
+    return lastUpdatedRef.onSnapshot(async (doc) => {
+      // TODO : Implement debounce for sync call
+
+      // ignore snapshots with hasPendingWrites (as the snapshot will contain "null" for the pending write field)
+      if (doc.metadata.hasPendingWrites) return;
+      let newDoc = dataFromSnapshot(doc);
+      if (!newDoc) {
+        //TODO : (test) if there is any other chance of getting this undefined when the doc actually exists on server
+        console.warn(
+          "lastUpdated doc is not available n server, creating empty object... "
+        );
+        // lastUpdatedRef.set({});
+        newDoc = {};
+      }
+      console.log("kkk new snapshot : ", newDoc);
+
+      for (const aTable of this.watchingCollections.list) {
+        const LATimeFromServer = newDoc[aTable]?.toMillis() || 0;
+        const LATimeFromLocal = this.lastUpdated[aTable] || 0;
+
+        if (!LATimeFromServer) {
+          console.warn(
+            `kkk table : ${aTable} is not availabe in the lastupdated doc from server, ${LATimeFromLocal}(local)`
+          );
+          this.lastUpdated[aTable] = 0;
+        } else if (LATimeFromServer > LATimeFromLocal) {
+          console.log(
+            `kkk syncing table ${aTable}..  ${LATimeFromServer}(server)  -> ${LATimeFromLocal}(local)`
+          );
+          this.lastUpdated[aTable] = LATimeFromServer;
+          this._syncTable(aTable);
         }
-      });
+        // else {
+        //   console.log(
+        //     `kkk table : ${aTable} is up-to-date ${LATimeFromServer}(server) -> ${LATimeFromLocal}(local)`
+        //   );
+        // }
+      }
+    });
   }
 
   // calling this will check for localDB availability and re-create if any changes a
   // TODO : (analytics) add re-create count and create count as events in analytics
-  async setupSyncDB(collection: ICollectionDetails) {
-    await createTables(collection);
+  async _setupSyncDB() {
+    await createTables(this.watchingCollections);
     return db;
   }
 
-  // filter doc of a specific table
-  _filterDoc(doc: Map<string, any>, tableName: string) {
-    const newDoc = new Map();
-    for (const aField of this.watchingCollections.fields[tableName]) {
-      newDoc.set(aField, doc.get(aField));
-    }
-    return newDoc;
-  }
-
   // when something is changed call this function to sync the respective collection.
-  _syncTable(tableName: string) {
-    const lastUpdatedTime = 0; // get from db
-    // call firestore request with last udpataed time.
-    fdb
+  async _syncTable(tableName: string) {
+    console.log("kkk START SYNC >>> ", tableName);
+    const luTimeFromDB = await getLastUpdatedTimeFromDB(this.db, tableName);
+    const luTimestamp = Timestamp.fromMillis(luTimeFromDB);
+    // call firestore request with last updated time.
+    this.firedb
       .collection(tableName)
-      .where("ut", ">", lastUpdatedTime)
+      .where("ut", ">", luTimestamp)
       .get()
       .then(async (querySnapshot) => {
-        // get add docs from the snapshot
+        if (querySnapshot.docs.length === 0) return; // if no docs are available, return
+
+        // get add docs from the snapshot..
+
         const docs = querySnapshot.docs.map((doc) => dataFromSnapshot(doc));
 
         const newLatestUpdatedTime = Math.max(
-          ...docs.map((o) => o.get("ut")),
+          ...docs.map((aDoc) => aDoc?.ut?.toMillis() || 0),
           0
         );
-
-        console.log("newLatestUpdatedTime :", newLatestUpdatedTime);
-
-        const localdb = await this.db;
+        console.log(
+          `kkk got ${querySnapshot.docs.length} items from server , last_update (${newLatestUpdatedTime} << old-${luTimeFromDB})`
+        );
 
         // saving to db with chunks of 50
         const chunk = 50;
         for (let i = 0; i * chunk < docs.length; i += chunk) {
           let chunkDocs = docs.slice(i, i + chunk);
-          // select only observing fields
-          chunkDocs = chunkDocs.map((aDoc) => this._filterDoc(aDoc, tableName));
-          localdb(tableName).insert(chunkDocs);
+          insertDataToTable(
+            this.db,
+            tableName,
+            chunkDocs,
+            this.watchingCollections
+          );
         }
 
-        // save the latest updated time to db
-        localdb(TABLE_SYNC_STATUS).update({
-          id: tableName,
-          ut: newLatestUpdatedTime,
-        });
-
-        // save the docs to db
+        saveLastUpdatedTimeToDB(this.db, tableName, newLatestUpdatedTime);
       })
       .catch(function (error) {
-        console.log("Error getting documents: ", error);
+        console.log("kkk Error getting documents: ", error);
       });
   }
 }
 
-const sync = new Sync();
+let sync: Sync;
 
-export default sync;
+export const initSync = (config: ISyncConfig, firedb: IFireDB) => {
+  // don't re-initiate the sync, if doing so make sure to remove all listeners from the previous sync.
+  if (!sync) sync = new Sync(config, firedb);
+  else console.warn("Sync is already initialized, returning the old sync");
+  return sync;
+};
 
-// TODO : (test) what will happen the sync fu
+export type ISync = InstanceType<typeof Sync>;
+
+// TODO : (test) what will happen it multiple updates came before completing the first update?
+// TODO : (test) on dev env when tested with hot-reloading in webpack, when the code in this file is changed the onSnapshot listeners were being added additionally. when that happens, the onSnapshot will be called multiple times for a single data change. check if there is any possible scenarios like this in real-word usecase.

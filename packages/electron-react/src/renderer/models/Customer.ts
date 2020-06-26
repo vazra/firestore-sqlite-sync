@@ -1,4 +1,5 @@
 import faker from "faker";
+import { BaseModel } from "./BaseModel";
 
 interface ICustomer {
   name: string;
@@ -8,6 +9,7 @@ interface ICustomer {
 }
 
 export class Customer extends BaseModel implements ICustomer {
+  fields: string[] = ["name", "phone", "address", "area"];
   name: string;
   phone: string;
   address: string;

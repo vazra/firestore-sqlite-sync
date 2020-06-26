@@ -8,7 +8,8 @@ type ContextProps = {
 const SyncContext = React.createContext<ContextProps>({ sync: undefined });
 
 function useSync() {
-  return useContext(SyncContext);
+  const syncObj = useContext(SyncContext);
+  return syncObj.sync;
 }
 
 interface ISyncProvider {

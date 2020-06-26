@@ -1,4 +1,4 @@
-import { IDoc } from "../sync/firesync";
+import { IDoc } from "../sync";
 
 export const dataFromSnapshot = <T>(
   snapshot: firebase.firestore.DocumentData
@@ -14,16 +14,3 @@ export const dataFromSnapshot = <T>(
     id: snapshot.id,
   };
 };
-
-// export const listFromQuerySnapshot = <T>(
-//   snapshot: firebase.firestore.QuerySnapshot
-// ): Map<string, any>[] => {
-//   if(snapshot.empty) return []
-
-//   snapshot.docs
-//   const data = snapshot.data() as any;
-
-//   return {
-//     ...data,
-//     id: snapshot.id,
-//   };

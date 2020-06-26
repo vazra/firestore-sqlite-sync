@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Button, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { addToFire } from "../service/firestore/users";
-import { IDoc } from "../service/sync/firesync";
+import { IDoc } from "../service/sync";
 import faker from "faker";
+import { useSync } from "../providers/SyncProvider";
+import { insertWithSync } from "../service/sync/firestore";
 interface IAddUserToFire {
   tableName: string;
 }
 
 const crateDummy = (tableName: string) => {
   if (tableName === "customers") {
-    console.log("Creating a new dummy customer");
+    // console.log("Creating a new dummy customer");
     var name = faker.name.findName();
     var phone = faker.phone.phoneNumber();
     var address = faker.address.streetAddress();
     var area = faker.address.countryCode();
     return { name, phone, address, area };
   } else if (tableName === "products") {
-    console.log("Creating a new dummy product");
+    // console.log("Creating a new dummy product");
     var name = faker.commerce.productName();
     var category = faker.commerce.productMaterial();
     var description = faker.lorem.slug(5);
@@ -30,6 +31,7 @@ const crateDummy = (tableName: string) => {
 export function AddUserToFire({ tableName }: IAddUserToFire) {
   const [newItem, setNewItem] = useState<IDoc>(crateDummy(tableName));
   const [loading, setLoading] = useState<boolean>(false);
+  const sync = useSync();
 
   useEffect(() => {
     setNewItem(crateDummy(tableName));
@@ -60,7 +62,7 @@ export function AddUserToFire({ tableName }: IAddUserToFire) {
           <Button
             onClick={async () => {
               setLoading(true);
-              await addToFire(tableName, newItem);
+              sync && (await insertWithSync(sync, tableName, newItem));
               setNewItem(crateDummy(tableName));
               setLoading(false);
             }}

@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
-import { IDoc } from "../service/sync/firesync";
 import { getAllFromTable } from "../service/sqlite";
+import { IDoc } from "../service/sync";
+import { useSync } from "../providers/SyncProvider";
 
 export const ColumnNames: IDoc = {
   name: "Name",
@@ -22,6 +23,8 @@ interface ILocalTable {
 export function LocalTable({ collection }: ILocalTable) {
   const [items, setItems] = useState<IDoc[]>([]);
 
+  const syncObj = useSync();
+
   const columns = useMemo(() => {
     // get colemns from the first item keys
     if (items.length > 0) {
@@ -35,15 +38,17 @@ export function LocalTable({ collection }: ILocalTable) {
   }, [items]);
 
   useEffect(() => {
-    getAllFromTable(collection).then((newUsers) => {
-      setItems(newUsers);
-    });
-  }, [collection]);
+    syncObj &&
+      getAllFromTable(syncObj, collection).then((newUsers) => {
+        setItems(newUsers);
+      });
+  }, [syncObj, collection]);
 
   const reloadTable = () => {
-    getAllFromTable(collection).then((newUsers) => {
-      setItems(newUsers);
-    });
+    syncObj &&
+      getAllFromTable(syncObj, collection).then((newUsers) => {
+        setItems(newUsers);
+      });
   };
 
   return (
