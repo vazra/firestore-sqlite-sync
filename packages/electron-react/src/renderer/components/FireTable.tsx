@@ -9,9 +9,10 @@ import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { dataFromSnapshot } from "../service/firestore/helpers";
-import { IDoc } from "../service/sync/firesync";
+import { IDoc } from "../service/sync";
 import { ColumnNames } from "./LocalTable";
-import { deleteAnItem, updateAnItem } from "../service/firestore/users";
+import { updateWithSync } from "../service/sync/firestore";
+import { useSync } from "../providers/SyncProvider";
 
 interface IFireTable {
   collection: string;
@@ -20,12 +21,13 @@ interface IFireTable {
 export function FireTable({ collection }: IFireTable) {
   const [items, setItems] = useState<IDoc[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const sync = useSync();
 
   const deleteFormatter = (cell: string | undefined, row: any) => (
     <span
       onClick={async () => {
         setLoading(true);
-        cell && deleteAnItem(collection, cell);
+        sync && cell && updateWithSync(sync, collection, cell, { del: true });
         setLoading(false);
       }}
     >
@@ -71,7 +73,7 @@ export function FireTable({ collection }: IFireTable) {
         itemDoc && newItemList.push(itemDoc);
       });
       setItems(newItemList);
-      console.log(`Updated ${querySnapshot.docs.length} users `);
+      // console.log(`Updated ${querySnapshot.docs.length} users `);
     });
   }, [collection]);
 
@@ -83,7 +85,7 @@ export function FireTable({ collection }: IFireTable) {
     console.log("Editing id ", rowId);
     const updateDoc: { [key: string]: any } = {};
     updateDoc[dataField] = newValue;
-    await updateAnItem(collection, rowId, updateDoc);
+    sync && (await updateWithSync(sync, collection, rowId, updateDoc));
     setLoading(false);
   };
 
