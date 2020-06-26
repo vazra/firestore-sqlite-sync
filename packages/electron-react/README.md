@@ -2,10 +2,10 @@
 
 > Electron - React App in TypeScript with selective data sync from Firebase firestore to local SQLite DB.
 
-* bootstraped with [`electron-webpack-typescript-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) which is based in `electron-webpack`.
-* Uses SQLite as local databse 
-* Uses Firestore as remote database
-* Sync selected data from Firestore to Local SQLite databse, for efficient offline support and permomance improvement 
+- bootstrapped with [`electron-webpack-typescript-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) which is based in `electron-webpack`.
+- Uses SQLite as local database
+- Uses Firestore as remote database
+- Sync selected data from Firestore to Local SQLite database, for efficient offline support and permomance improvement
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ The use of the [yarn](https://yarnpkg.com/) package manager is **strongly** reco
 
 1. Can I use this as a boilerplate for my electron-react app with native databases
 
-   Ans. Yes, you can. this project itself is bootstrapped with [`electron-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) You can either take it as the base project or fork this repo and remove unwanted db codes. 
+   Ans. Yes, you can. this project itself is bootstrapped with [`electron-react boilerplate`](https://github.com/vazra/electron-webpack-typescript-react) You can either take it as the base project or fork this repo and remove unwanted db codes.
 
 For any bugs or requests create issues [here](https://github.com/vazra/sqlite-firestore-sync/issues)
 

@@ -2,8 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
-import { getAllFromTable } from "../service/sqlite";
-import { IDoc } from "../service/sync";
+import { IDoc, ISync } from "../service/sync";
 import { useSync } from "../providers/SyncProvider";
 
 export const ColumnNames: IDoc = {
@@ -14,6 +13,13 @@ export const ColumnNames: IDoc = {
   id: "ID",
   pid: "Product ID",
   category: "Category",
+  desc: "Description",
+};
+
+const getAllFromTable = async (sync: ISync, tableName: string) => {
+  const db = await sync.db;
+  console.log("kkk getAllFromTable db", db);
+  return await db(tableName).select();
 };
 
 interface ILocalTable {

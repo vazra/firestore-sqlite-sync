@@ -29,12 +29,11 @@ export const saveLastUpdatedTimeToDB = async (
 ) => {
   try {
     const localDb = await dbPromise;
-    const queryRes = await localDb(TABLE_SYNC_STATUS)
+    /*const queryRes = */ await localDb(TABLE_SYNC_STATUS)
       .where({ id: tableName })
       .update("ut", time);
     return Promise.resolve();
   } catch (err) {
-    console.error("kkk ", err);
     return Promise.reject(err);
   }
 };

@@ -113,33 +113,5 @@ export function FireTable({ collection }: IFireTable) {
     </div>
   );
 }
-// export function FireTable() {
-//   const [users, setUsers] = useState<UserDocType[]>([]);
-
-//   useEffect(() => {
-//     return fdb.collection(collectionName).onSnapshot(function (querySnapshot) {
-//       var newUsers = [];
-//       querySnapshot.forEach(function (doc) {
-//         newUsers.push(doc.data());
-//       });
-//       setUsers(newUsers);
-//       console.log(`Updated ${querySnapshot.length} users `);
-//     });
-//   }, []);
-
-//   return (
-//     <div>
-//       <div className="py-3">
-//         <AddUserToFire />
-//       </div>
-//       <BootstrapTable
-//         keyField="id"
-//         data={users}
-//         columns={columns}
-//         pagination={paginationFactory({ sizePerPage: 5 })}
-//       />
-//     </div>
-//   );
-// }
 
 export default FireTable;
