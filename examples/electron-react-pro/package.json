@@ -1,0 +1,100 @@
+{
+  "name": "electron-react-pro",
+  "description": "Electron app build using ReactJS and Parcel web application bundler",
+  "version": "1.0.0",
+  "repository": "https://github.com/electronreact/electron-react-pro.git",
+  "author": "Vazra <rashadvaz@gmail.com>",
+  "license": "MIT",
+  "main": "build/main.js",
+  "scripts": {
+    "dev": "npm-run-all clean -p watch:*",
+    "start": "npm-run-all clean -p build:* -s open-electron",
+    "watch:react": "parcel index.html -p 53226 --out-dir build",
+    "watch:main": "parcel src/main.ts -d build --target=electron",
+    "watch:electron": "wait-on http://localhost:53226 && cross-env ELECTRON_DEBUG=true electron .",
+    "build:react": "parcel build index.html --out-dir build --public-url=./",
+    "build:main": "parcel build src/main.ts --out-dir build --out-file main --target electron",
+    "open-electron": "cross-env ELECTRON_IS_DEV=0 electron .",
+    "build": "npm-run-all clean --parallel build:*",
+    "pack": "electron-builder --x64 --publish=never",
+    "ship": "electron-builder --x64 --publish=always",
+    "postinstall": "electron-builder install-app-deps",
+    "clean": "rimraf ./dist ./build .cache",
+    "test-bundle": "bundlesize"
+  },
+  "browserslist": [
+    "Electron 9.0"
+  ],
+  "bundlesize": [
+    {
+      "path": "./build/src.*.js",
+      "maxSize": "250 kB"
+    },
+    {
+      "path": "./build/src.*.css",
+      "maxSize": "100 kB"
+    }
+  ],
+  "keywords": [
+    "electron",
+    "react",
+    "parcel",
+    "electron-react-parcel",
+    "electron react parcel"
+  ],
+  "dependencies": {
+    "electron-is-dev": "1.2.0"
+  },
+  "build": {
+    "appId": "io.githubvazra.electron",
+    "files": [
+      "src/assets/*",
+      "build/**/*"
+    ],
+    "mac": {
+      "target": "dmg",
+      "icon": "src/assets/logo.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/logo.png"
+    },
+    "linux": {
+      "target": "deb",
+      "icon": "src/assets/logo.png",
+      "category": "Development"
+    }
+  },
+  "homepage": "./",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.3",
+    "@babel/plugin-transform-react-jsx": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "@babel/preset-typescript": "^7.10.1",
+    "@types/jest": "^26.0.3",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "babel-jest": "^26.1.0",
+    "bundlesize": "^0.18.0",
+    "cross-env": "7.0.2",
+    "electron": "9.0.5",
+    "electron-builder": "22.7.0",
+    "firebase": "^7.15.5",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-test-renderer": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "semantic-ui-css": "2.4.1",
+    "typescript": "^3.9.5",
+    "vazpack": "^1.0.10",
+    "wait-on": "5.0.1"
+  }
+}

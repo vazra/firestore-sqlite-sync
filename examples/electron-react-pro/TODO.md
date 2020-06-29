@@ -1,0 +1,3 @@
+- [ ] build/dev & build/prod dirs.
+- [ ] Add proper GitIgnores.
+- [ ]
