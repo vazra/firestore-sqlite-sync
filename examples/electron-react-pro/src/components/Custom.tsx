@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { myTime, fbTime } from "vazpack";
+import path from "path";
+import fs from "fs";
 
-const Custom = () => {
+const { remote, ipcRenderer } = window.require("electron");
+// const ipcRenderer = require("ipcRenderer");
+// const remote = require("remote");
+const app = remote.app;
+
+export const getDBDir = (dbname: string, dbfile: string) => {
+  const dirPath = path.join(app.getPath("userData"), "db", dbname);
+  if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
+  const dbPath = path.join(dirPath, dbfile);
+  console.log("DB_PATH: ", dbPath);
+  return dbPath;
+};
+
+function Custom() {
   const [count, setCount] = useState(1);
+  // const [dbpath, setDBPath] = useState(getDBDir("sdsd", "data.db"));
+
   return (
     <div className="ui container">
       <h3>
-        React{" "}
+        kkkokok{" "}
         <span>
           <img
             src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-32.png"
             width="32"
           />
         </span>
-        + Parkcel{" "}
+        + Parkcxl{" "}
         <span>
           <img src="https://parceljs.org/assets/parcel@2x.png" width="32" />{" "}
         </span>
@@ -21,8 +38,9 @@ const Custom = () => {
         <span>
           <img src="https://electronjs.org/images/favicon.ico" width="32" />
         </span>{" "}
-        = Awesllmkmk cool madnomess lll! 🎉
+        = Awesllmkmk nice madnomess lll! 🎉
       </h3>
+      {/* <h2>dbpath: {dbpath}</h2> */}
       <h1>Count : {count} </h1>
       <button
         onClick={() => {
@@ -45,6 +63,6 @@ const Custom = () => {
       <h1>b. {fbTime(new Date())}</h1>
     </div>
   );
-};
+}
 
 export default Custom;

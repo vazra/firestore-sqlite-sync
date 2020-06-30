@@ -13,7 +13,12 @@
 
 `yarn dev` => open dev env, in watch mode.
 
+> process.env.NODE_ENV variable to development
+> generates source maps and doesn't do any minification
+
 `yarn start` => build and open electron with prod env.
+
+> process.env.NODE_ENV variable to production
 
 `yarn pack` => package the app.
 
@@ -41,6 +46,16 @@
 - tried may other boilerplates.
 - my experiments
 - leaned the best practices.
+
+### Why Parcel? why not webpack?
+
+- speed
+- user-friendliness
+- less configurations.
+- differential serving and compiling inline scripts and styles without any configuration
+- Using a HTML file as the entrypoint makes Parcel easier to use as it will be able to detect dependencies directly from the HTML file and bundle all these detected dependencies into their respective bundles automatically without any configuration
+
+### Why
 
 ## TODO :
 

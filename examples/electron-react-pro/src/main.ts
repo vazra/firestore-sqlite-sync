@@ -21,6 +21,9 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
   const filePath = `file://${path.join(__dirname, "../build/index.html")}`;
   console.log("Filet ot load...", filePath);
