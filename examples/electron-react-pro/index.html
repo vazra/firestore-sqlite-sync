@@ -13,6 +13,9 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- type="module" is added for differential serving by parcel, This results in faster load time. We don't need to support older browsers as we will run only in Electron.  -->
+    <!-- <script type="module" src="./src/index.tsx"></script> -->
+    <!-- It is recommeded to use type=module, but becaulse of this bug - https://github.com/parcel-bundler/parcel/issues/1401 its not possible with parcel2 now.   -->
     <script src="./src/index.tsx"></script>
   </body>
 </html>

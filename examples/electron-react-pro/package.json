@@ -5,22 +5,33 @@
   "repository": "https://github.com/electronreact/electron-react-pro.git",
   "author": "Vazra <rashadvaz@gmail.com>",
   "license": "MIT",
-  "main": "build/main.js",
+  "main": "build/main/index.js",
   "scripts": {
     "dev": "npm-run-all clean -p watch:*",
     "start": "npm-run-all clean -p build:* -s open-electron",
-    "watch:react": "parcel index.html -p 53226 --out-dir build",
-    "watch:main": "parcel src/main.ts -d build --target=electron",
-    "watch:electron": "wait-on http://localhost:53226 && cross-env ELECTRON_DEBUG=true electron .",
-    "build:react": "parcel build index.html --out-dir build --public-url=./",
-    "build:main": "parcel build src/main.ts --out-dir build --out-file main --target electron",
+    "watch:react": "parcel index.html -p 53226 --dist-dir build/renderer --target=renderer --log-level info",
+    "watch:electron": "wait-on build/main/index.js && wait-on http://localhost:53226 && cross-env ELECTRON_DEBUG=true electron .",
+    "watch:main": "tsc -p tsconfig-main.json -w",
+    "build:main": "tsc -p tsconfig-main.json",
+    "parcel:main": "parcel watch src/main.ts --dist-dir build --target=main --log-level info",
+    "build:react": "parcel build index.html --dist-dir build --public-url=./",
+    "parce:build:main": "parcel build src/main.ts --dist-dir build --target electron",
     "open-electron": "cross-env ELECTRON_IS_DEV=0 electron .",
     "build": "npm-run-all clean --parallel build:*",
     "pack": "electron-builder --x64 --publish=never",
     "ship": "electron-builder --x64 --publish=always",
     "postinstall": "electron-builder install-app-deps",
-    "clean": "rimraf ./dist ./build .cache",
+    "clean": "rimraf .parcel-cache ./dist ./build .cache",
     "test-bundle": "bundlesize"
+  },
+  "targets": {
+    "renderer": {
+      "context": "browser",
+      "includeNodeModules": true,
+      "engines": {
+        "electron": ">=9.x"
+      }
+    }
   },
   "browserslist": [
     "Electron 9.0"
@@ -43,7 +54,9 @@
     "electron react parcel"
   ],
   "dependencies": {
-    "electron-is-dev": "1.2.0"
+    "electron-is-dev": "1.2.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "build": {
     "appId": "io.githubvazra.electron",
@@ -77,6 +90,7 @@
     "@types/jest": "^26.0.3",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
+    "@types/node": "^12",
     "babel-jest": "^26.1.0",
     "bundlesize": "^0.18.0",
     "cross-env": "7.0.2",
@@ -86,9 +100,7 @@
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "parcel": "2.0.0-beta.1",
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",

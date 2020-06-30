@@ -23,7 +23,7 @@ function Custom() {
   return (
     <div className="ui container">
       <h3>
-        kkkokok{" "}
+        you podapoda...{" "}
         <span>
           <img
             src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-32.png"
@@ -38,10 +38,10 @@ function Custom() {
         <span>
           <img src="https://electronjs.org/images/favicon.ico" width="32" />
         </span>{" "}
-        = Awesllmkmk nice madnomess lll! 🎉
+        = Awesllmkmk nice manda lll! 🎉
       </h3>
       {/* <h2>dbpath: {dbpath}</h2> */}
-      <h1>Count : {count} </h1>
+      <h1>Counts : {count} </h1>
       <button
         onClick={() => {
           setCount((c) => c + 1);
