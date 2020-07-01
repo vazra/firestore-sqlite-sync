@@ -1,5 +1,7 @@
 # electron-react-pro
 
+> WARNING! Through this stack is promising, its not yet production ready, as Parcel do not support many native functionalities. So for the time being please use https://github.com/vazra/electron-webpack-typescript-react . when Parcel is ready for production, this repo will be updated with the new stack.
+
 > <img src="https://electronjs.org/images/favicon.ico" width="16"> + <img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-32.png" width=16> + <img src="https://parceljs.org/assets/parcel@2x.png" width=16> + = ❤️
 
 [![Stars][badge_github_stars]][github_stars]
