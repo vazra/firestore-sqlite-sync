@@ -4,8 +4,4 @@ node_modules/
 thumbs.db
 .idea/
 .env
-
-# DB files
-*-rxdb-*/**/*
-rxdb-adapter-check
-.db/**/*
+build/

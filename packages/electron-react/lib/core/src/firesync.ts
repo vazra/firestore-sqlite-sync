@@ -1,9 +1,9 @@
 import {
   createTables,
-  db,
   insertDataToTable,
   getLastUpdatedTimeFromDB,
   saveLastUpdatedTimeToDB,
+  getDB,
 } from "./sqlite";
 import Knex from "knex";
 import { IFireDB, Timestamp, dataFromSnapshot } from "./firestore";
@@ -86,7 +86,7 @@ class Sync {
       console.log("kkk new snapshot : ", newDoc);
 
       for (const aTable of this.watchingCollections.list) {
-        const LATimeFromServer = newDoc[aTable]?.toMillis() || 0;
+        const LATimeFromServer = newDoc[aTable].toMillis() || 0;
         const LATimeFromLocal = this.lastUpdated[aTable] || 0;
 
         if (!LATimeFromServer) {
@@ -113,6 +113,7 @@ class Sync {
   // calling this will check for localDB availability and re-create if any changes a
   // TODO : (analytics) add re-create count and create count as events in analytics
   async _setupSyncDB() {
+    const db = getDB(this.config.dbpath);
     await createTables(this.watchingCollections);
     return db;
   }

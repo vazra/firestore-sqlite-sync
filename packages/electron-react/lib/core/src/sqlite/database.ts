@@ -1,18 +1,27 @@
 import knex from "knex";
-import { getDBDir } from "../../../utils";
 import { IField, ICollectionDetails } from "../types";
+import Knex from "knex";
+// const knex = require("knex");
+
 export const TABLE_SYNC_STATUS = "sync_status";
 
-const knexConfig = {
+const knexConfig = (dbPath: string) => ({
   client: "sqlite3",
   connection: {
-    filename: getDBDir("sqlite", "data.sqlite"),
+    filename: dbPath,
   },
   // debug: true,
   useNullAsDefault: true,
+});
+
+let db: Knex<any, unknown[]>;
+
+export const getDB = (dbPath: string) => {
+  if (!db) db = knex(knexConfig(dbPath));
+  return db;
 };
 
-export const db = knex(knexConfig);
+// export const db = ;
 
 const _createIfNotExists = async (
   tableName: string,
@@ -53,8 +62,8 @@ const _createIfNotExists = async (
 };
 
 export const createTables = async (
-  collections: ICollectionDetails,
-  version: number = 0
+  collections: ICollectionDetails
+  // version: number = 0
 ) => {
   // TODO : Recreate table if versions don't match.
   const tableProms: Promise<any>[] = [];

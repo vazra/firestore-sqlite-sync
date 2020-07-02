@@ -9,9 +9,9 @@ import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { dataFromSnapshot } from "../service/firestore/helpers";
-import { IDoc } from "../service/sync";
+import { IDoc } from "@firestore-sqlite-sync/core";
 import { ColumnNames } from "./LocalTable";
-import { updateWithSync } from "../service/sync/firestore";
+import { updateWithSync } from "@firestore-sqlite-sync/core";
 import { useSync } from "../providers/SyncProvider";
 
 interface IFireTable {

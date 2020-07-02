@@ -10,7 +10,7 @@ export const Timestamp = firebase.firestore.Timestamp;
 export type IFireDB = firebase.firestore.Firestore;
 
 // retrieve data from snapshot with 'id' as a property
-export const dataFromSnapshot = <T>(
+export const dataFromSnapshot = (
   snapshot: firebase.firestore.DocumentData
 ): IDoc | undefined => {
   if (!snapshot.exists) {
@@ -43,6 +43,7 @@ export const updateWithSync = async (
       .update({ [collectionId]: serverTime() });
     Promise.resolve();
   } catch (err) {
+    console.log("Err in updateWithSync");
     console.warn(err);
     Promise.reject(err);
   }
