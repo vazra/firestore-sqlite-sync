@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "publish": "lerna run build && cross-env HUSKY_BYPASS=true lerna publish"
+    "publish": "lerna run build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
