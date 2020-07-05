@@ -1,3 +1,5 @@
-import { Doctor } from '@hospital-sdk/doctor'
+import Core from '@firestore-sqlite-sync/core'
+import * as React from '@firestore-sqlite-sync/react'
 
-console.log(new Doctor())
+console.log(Core)
+console.log(React)

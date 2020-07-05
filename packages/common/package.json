@@ -16,14 +16,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vazra/sync-temp.git"
+    "url": "git+https://github.com/vazra/firestore-sqlite-sync.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/vazra/sync-temp/issues"
+    "url": "https://github.com/vazra/firestore-sqlite-sync/issues"
   },
-  "homepage": "https://github.com/vazra/sync-temp#readme",
+  "homepage": "https://github.com/vazra/firestore-sqlite-sync#readme",
   "gitHead": "033dff42e539a81dc6631b379486083bf92502fe"
 }

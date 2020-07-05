@@ -30,7 +30,7 @@
     "firestore"
   ],
   "author": "Ameen Rashad <ameenrashadv@gmail.com>",
-  "homepage": "https://github.com/vazra/sync-temp#readme",
+  "homepage": "https://github.com/vazra/firestore-sqlite-sync#readme",
   "license": "MIT",
   "directories": {
     "lib": "lib",
@@ -38,9 +38,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vazra/sync-temp.git"
+    "url": "git+https://github.com/vazra/firestore-sqlite-sync.git"
   },
   "bugs": {
-    "url": "https://github.com/vazra/sync-temp/issues"
+    "url": "https://github.com/vazra/firestore-sqlite-sync/issues"
   }
 }
