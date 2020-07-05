@@ -1,6 +1,7 @@
 {
   "name": "common",
   "version": "0.1.15",
+  "private": true,
   "description": "Common components",
   "keywords": [],
   "author": "Ameen Rashad <ameenrashadv@gmail.com>",
@@ -23,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/vazra/sync-temp/issues"
   },
-  "homepage": "https://github.com/vazra/sync-temp#readme"
+  "homepage": "https://github.com/vazra/sync-temp#readme",
+  "gitHead": "033dff42e539a81dc6631b379486083bf92502fe"
 }
