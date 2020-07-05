@@ -1,7 +1,29 @@
 {
-  "name": "root",
-  "private": true,
+  "name": "firestore-sqlite-sync",
+  "private": "true",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "publish": "lerna run build && lerna publish"
+  },
   "devDependencies": {
-    "lerna": "^3.22.1"
-  }
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-typescript": "^5.0.0",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^12.12.47",
+    "firebase": "^7.15.5",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5",
+    "rollup": "^2.19.0",
+    "shx": "^0.3.2",
+    "ts-jest": "^26.1.1",
+    "tslib": "^2.0.0",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.6"
+  },
+  "version": "0.1.18"
 }

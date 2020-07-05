@@ -1,0 +1,46 @@
+{
+  "name": "@firestore-sqlite-sync/react",
+  "version": "0.0.0",
+  "private": "false",
+  "description": "React Provider ",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "jsnext:main": "lib/index.es.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "watch": "rollup -c -w",
+    "build": "rollup -c && tsc -d --emitDeclarationOnly --declarationDir lib/types",
+    "format": "prettier --write \"src/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "test": "jest --coverage",
+    "prepare": "yarn build",
+    "preversion": "yarn lint",
+    "clean": "shx rm -rf dist/*"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "react",
+    "sqlite",
+    "sync",
+    "firestore"
+  ],
+  "author": "Ameen Rashad <ameenrashadv@gmail.com>",
+  "homepage": "https://github.com/vazra/sync-temp#readme",
+  "license": "MIT",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vazra/sync-temp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vazra/sync-temp/issues"
+  }
+}

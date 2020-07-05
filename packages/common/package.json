@@ -1,0 +1,27 @@
+{
+  "name": "common",
+  "version": "0.0.0",
+  "description": "Common components",
+  "keywords": [],
+  "author": "Ameen Rashad <ameenrashadv@gmail.com>",
+  "license": "ISC",
+  "main": "src/common.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vazra/sync-temp.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/vazra/sync-temp/issues"
+  },
+  "homepage": "https://github.com/vazra/sync-temp#readme"
+}
