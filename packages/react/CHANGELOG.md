@@ -9,11 +9,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * updated private tag ([e708c42](https://github.com/vazra/sync-temp/commit/e708c428e147a22a0efd6498576145adb9dc4f3a))
-
-
-
-
-
-## [0.1.16](https://github.com/vazra/sync-temp/compare/v0.1.15...v0.1.16) (2020-07-05)
-
-**Note:** Version bump only for package firestore-sqlite-sync

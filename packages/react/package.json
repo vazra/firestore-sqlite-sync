@@ -1,6 +1,6 @@
 {
   "name": "@firestore-sqlite-sync/react",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "private": false,
   "description": "React Provider ",
   "main": "lib/index.js",
