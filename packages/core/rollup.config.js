@@ -23,7 +23,13 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {}), 'firebase/app', 'firebase/firestore'],
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {}),
+    'firebase/app',
+    'firebase/firestore',
+    './fssync.config.json',
+  ],
   plugins: [
     resolve(),
     // typescript({

@@ -8,6 +8,10 @@
   "scripts": {
     "publish": "lerna run build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish"
   },
+  "// devDependencies": {
+    "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
+    "shx": "Needed for development-time package.json scripts"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",

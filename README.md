@@ -13,3 +13,5 @@
 - in the watching-fields only `strings` and `numbers` are supported now.
 
 - Only first level item in the collection doc is considered.
+
+- In the local database, all the id fields (which is the primary key) is made to string, as it corresponds to DocID from firestore which is a string.

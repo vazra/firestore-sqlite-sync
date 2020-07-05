@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "dbpath": "./sync.sqlite",
+  "updatedTimeKey": "ut",
+  "cooldownTime": 10000,
+  "collections": {
+    "users": {
+      "name": "string",
+      "phone": "string",
+      "address": "string",
+      "area": "string"
+    },
+    "products": {
+      "name": "string",
+      "price": "number"
+    }
+  }
+}

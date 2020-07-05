@@ -31,16 +31,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "knex": "^0.21.1"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "firebase": "7.x",
-    "sqlite3": "4.x"
+    "better-sqlite3": "^7.x"
   },
-  "// devDependencies": {
-    "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
-    "shx": "Needed for development-time package.json scripts"
+  "devDependencies": {
+    "better-sqlite3": "^7.1.0",
+    "@types/better-sqlite3": "^5.4.0"
   },
   "repository": {
     "type": "git",
