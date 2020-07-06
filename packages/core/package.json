@@ -1,7 +1,7 @@
 {
   "name": "@firestore-sqlite-sync/core",
   "private": false,
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Sync selected collections from firebase-firestore to local sqlite database",
   "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
@@ -31,12 +31,11 @@
     "access": "public"
   },
   "dependencies": {
-    "app-root-path": "^3.0.0"
-  },
-  "peerDependencies": {
+    "app-root-path": "^3.0.0",
     "better-sqlite3": "^7.x",
     "firebase": "7.x"
   },
+  "peerDependencies": {},
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",
     "@types/better-sqlite3": "^5.4.0"
