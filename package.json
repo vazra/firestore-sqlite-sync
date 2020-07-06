@@ -6,6 +6,10 @@
     "packages/*"
   ],
   "scripts": {
+    "build-all": "lerna run build",
+    "build": "yarn workspace @firestore-sqlite-sync/core run build",
+    "watch": "yarn workspace @firestore-sqlite-sync/core run watch",
+    "watch-all": "lerna run watch",
     "publish": "lerna run build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish"
   },
   "// devDependencies": {
@@ -16,6 +20,7 @@
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@rollup/plugin-typescript": "^5.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@types/jest": "^26.0.3",
     "@types/node": "^12.12.47",
     "firebase": "^7.15.5",

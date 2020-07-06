@@ -1,4 +1,4 @@
 // export { default } from "./firesync";
-export * from "./firesync";
-export * from "./types";
-export * from "./firestore";
+export * from './firesync'
+export * from './firestore'
+export * from './types'

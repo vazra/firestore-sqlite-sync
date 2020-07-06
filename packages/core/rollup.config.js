@@ -1,7 +1,7 @@
-// import typescript from 'rollup-plugin-typescript2';
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
+import json from '@rollup/plugin-json'
 
 import pkg from './package.json'
 
@@ -28,16 +28,17 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
     'firebase/app',
     'firebase/firestore',
-    './fssync.config.json',
+    'fssync.config.json',
   ],
   plugins: [
     resolve(),
     // typescript({
     //   rollupCommonJSResolveHack: true,
     //   exclude: '**/__tests__/**',
-    //   clean: true
+    //   clean: true,
     // }),
     typescript(),
     commonjs(),
+    json(),
   ],
 }

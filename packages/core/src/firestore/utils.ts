@@ -1,8 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { IDoc } from '../types'
-import { ISync } from '../firesync'
 import { CNAME_SETTINGS, DOC_NAME_LAST_UPDATED } from '../constants'
+import { SYNC_CONFIG } from '../config'
+import { IDoc, ISync } from '..'
 
 export const serverTime = firebase.firestore.FieldValue.serverTimestamp
 export const Timestamp = firebase.firestore.Timestamp
@@ -30,7 +30,7 @@ export const updateWithSync = async (sync: ISync, collectionId: string, docId: s
     await sync.firedb
       .collection(collectionId)
       .doc(docId)
-      .update({ ...data, [sync.config.updatedTimeKey || 'ut']: serverTime() })
+      .update({ ...data, [SYNC_CONFIG.updatedTimeKey || 'ut']: serverTime() })
 
     await sync.firedb
       .collection(CNAME_SETTINGS)
@@ -47,7 +47,7 @@ export const updateWithSync = async (sync: ISync, collectionId: string, docId: s
 export const insertWithSync = async (sync: ISync, collectionId: string, data: IDoc) => {
   try {
     await sync.firedb.collection(collectionId).add({
-      [sync.config.updatedTimeKey || 'ut']: serverTime(),
+      [SYNC_CONFIG.updatedTimeKey || 'ut']: serverTime(),
       ...data,
     })
 

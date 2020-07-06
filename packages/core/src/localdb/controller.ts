@@ -1,8 +1,7 @@
 import { db } from './db'
 import { Statement } from 'better-sqlite3'
-import { IField } from '..'
-import { IDoc } from '../types'
-import { WatchingCollections } from '..'
+import { WatchingCollections } from '../config'
+import { IField, IDoc } from '..'
 const SYNC_META_TIME_FIELD = 'ut'
 const SYNC_META_TABLE_NAME = 'sync_meta'
 
@@ -45,7 +44,7 @@ const createIfChanged = (tablename: string, fields: IField[]) => {
 // returns a trasation function with the statement given as param
 const multiTransaction = (statement: Statement<any[]>) => {
   // TODO : validate structure of the data
-  return db.transaction((data) => {
+  return db.transaction((data: any[]) => {
     for (const obj of data) statement.run(obj)
   })
 }
@@ -142,3 +141,5 @@ export const getLastUpdatedTimeFromDB = (collection: string): number => {
 export const setLastUpdatedTimeToDB = (collection: string, time: number) => {
   db.prepare(st_insert_ut).run({ id: collection, [SYNC_META_TIME_FIELD]: time })
 }
+
+createTables() // TODO (test) - check when and howmany times this is called.

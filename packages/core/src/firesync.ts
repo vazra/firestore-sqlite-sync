@@ -1,16 +1,8 @@
-import { IFireDB, Timestamp, dataFromSnapshot } from './firestore'
-import { ISyncConfig, ICollectionDetails, IDoc, IField } from './types'
+import { Timestamp, dataFromSnapshot } from './firestore'
 import { DOC_NAME_LAST_UPDATED, CNAME_SETTINGS } from './constants'
 import { getLastUpdatedTimeFromDB, setLastUpdatedTimeToDB, upsertDocs } from './localdb'
-const config = require('./fssync.config.json')
-const defaultConfig = require('./default.config.json')
-
-// TODO : validate congig.json
-export const SYNC_CONFIG: ISyncConfig = { ...defaultConfig, ...config } // Be, careful when accessing this, ISyncConfig type may not enforce here, as the data is dynamically loadaed
-export const WatchingCollections: ICollectionDetails = {
-  list: Object.keys(SYNC_CONFIG.collections),
-  fields: Object.assign({}, ...Object.entries(SYNC_CONFIG.collections).map(([k, v]) => [k, Object.entries(v as IField[])])),
-}
+import { SYNC_CONFIG, WatchingCollections } from './config'
+import { IDoc, IFireDB } from '.'
 
 // CONFIF ---> DETAILS
 // settingsCollectionName : collection name to be saved in the firestore to save the last updated time.
@@ -24,7 +16,7 @@ export const WatchingCollections: ICollectionDetails = {
 // Note: You can either use this method or decided when you want sync your data based on how you are consuming the data, and how often it will be updated.
 
 // sync all services
-class Sync {
+export class Sync {
   // sync database
   lastUpdated: IDoc = {} // { [key: string]: any } = {};
 

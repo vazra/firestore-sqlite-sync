@@ -9,8 +9,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "watch": "rollup -c -w",
-    "build": "rollup -c",
-    "ddbuild": "rollup -c && tsc -d --emitDeclarationOnly --declarationDir lib/types",
+    "build": "rollup -c && tsc -d --emitDeclarationOnly --outFile lib/index.js",
     "format": "prettier --write \"src/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --coverage",
