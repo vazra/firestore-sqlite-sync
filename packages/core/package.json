@@ -1,15 +1,16 @@
 {
   "name": "@firestore-sqlite-sync/core",
   "private": false,
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Sync selected collections from firebase-firestore to local sqlite database",
   "main": "lib/index.js",
   "module": "lib/index.es.js",
   "jsnext:main": "lib/index.es.js",
-  "types": "lib/types/index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "watch": "rollup -c -w",
-    "build": "rollup -c && tsc -d --emitDeclarationOnly --declarationDir lib/types",
+    "build": "rollup -c",
+    "ddbuild": "rollup -c && tsc -d --emitDeclarationOnly --declarationDir lib/types",
     "format": "prettier --write \"src/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --coverage",
@@ -31,13 +32,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "app-root-path": "^3.0.0"
+  },
   "peerDependencies": {
-    "firebase": "7.x",
-    "better-sqlite3": "^7.x"
+    "better-sqlite3": "^7.x",
+    "firebase": "7.x"
   },
   "devDependencies": {
-    "better-sqlite3": "^7.1.0",
+    "@types/app-root-path": "^1.2.4",
     "@types/better-sqlite3": "^5.4.0"
   },
   "repository": {
