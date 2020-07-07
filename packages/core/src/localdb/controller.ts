@@ -11,7 +11,7 @@ const SYNC_META_TABLE_NAME = 'sync_meta'
 // insert into table
 const st_table_list = `SELECT name FROM sqlite_master WHERE type='table';`
 
-const st_meta = `SELECT name FROM sqlite_master WHERE type='table' and name='$tablename';`
+const st_meta = `SELECT name FROM sqlite_master WHERE type='table' and name = ?;`
 
 const st_read_all = `SELECT * FROM $tablename LIMIT $count OFFSET $skip`
 
@@ -20,20 +20,23 @@ const st_read_all = `SELECT * FROM $tablename LIMIT $count OFFSET $skip`
 const st_search = `SELECT * FROM $tablename WHERE $column LIKE %$query% LIMIT $count`
 
 const st_insert = (table: string, columns: IField[]) =>
-  `INSERT OR REPLACE INTO ${table} VALUES (id, ${columns.map((col) => `$${col[0]}`).join(', ')})`
+  `INSERT OR REPLACE INTO ${table} VALUES (id, ${columns && columns.map((col) => `$${col[0]}`).join(', ')})`
 
 const st_insert_ut = `INSERT OR REPLACE INTO ${SYNC_META_TABLE_NAME} VALUES (id, ${SYNC_META_TIME_FIELD})`
 const st_read_ut = `SELECT ${SYNC_META_TIME_FIELD} FROM ${SYNC_META_TABLE_NAME} WHERE id='$collection' `
 
 const st_create = (table: string, columns: IField[]) =>
-  `CREATE TABLE ${table} ( "id" TEXT PRIMARY KEY, ${columns.map((col) => `"${col[0]}" ${col[1] === 'number' ? 'INTEGER' : 'TEXT'}`).join(', ')})`
+  `CREATE TABLE ${table} ( "id" TEXT PRIMARY KEY${
+    columns && columns.map((col) => `"${col[0]}" ${col[1] === 'number' ? 'INTEGER' : 'TEXT'}`).join(', ')
+  })`
 
 /* HELPERS */
 
 // check if table exists and have same fields
 const createIfChanged = (tablename: string, fields: IField[]) => {
   // TODO : Verify table colums here
-  const stmtTableMeta = db.prepare(st_meta).get({ tablename })
+  const stmtTableMeta = db.prepare(st_meta).get(tablename)
+  console.log('kkk stmtTableMeta - resp', stmtTableMeta)
   if (!stmtTableMeta) {
     db.exec(st_create(tablename, fields))
     return true

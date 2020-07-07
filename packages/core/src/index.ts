@@ -2,3 +2,4 @@
 export * from './firesync'
 export * from './firestore'
 export * from './types'
+export * from './localdb'
