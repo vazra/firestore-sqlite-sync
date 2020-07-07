@@ -2,6 +2,8 @@
 
 > WARNING! : this package is not yet ready for production, will remove this warning when ready.
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 ### Features
 
 -

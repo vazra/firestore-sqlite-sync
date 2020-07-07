@@ -3,14 +3,15 @@
   "version": "0.1.18",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
-    "build-all": "lerna run build",
-    "build": "yarn workspace @firestore-sqlite-sync/core run build",
-    "watch": "yarn workspace @firestore-sqlite-sync/core run watch",
-    "watch-all": "lerna run watch",
-    "publish": "lerna run build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish"
+    "build": "lerna run --scope=@firestore-sqlite-sync/* build",
+    "watch": "lerna run --scope=@firestore-sqlite-sync/* build",
+    "build-core": "yarn workspace @firestore-sqlite-sync/core run build",
+    "watch-core": "yarn workspace @firestore-sqlite-sync/core run watch",
+    "publish": "yarn build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish --scope=@firestore-sqlite-sync/*"
   },
   "// devDependencies": {
     "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
