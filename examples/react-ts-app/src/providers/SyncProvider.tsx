@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { IFireDB, ISync, ISyncConfig, initSync } from "@firestore-sqlite-sync/core";
+import { IFireDB, ISync, ISyncConfig, initSync } from "../../../../packages/core/src";
 
 type ContextProps = {
   sync: ISync | undefined;

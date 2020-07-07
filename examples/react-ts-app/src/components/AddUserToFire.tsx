@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import faker from "faker";
 import { useSync } from "../providers/SyncProvider";
-import { IDoc, insertWithSync } from "@firestore-sqlite-sync/core";
+import { IDoc, insertWithSync } from "../../../../packages/core/src";
 interface IAddUserToFire {
   tableName: string;
 }

@@ -3,7 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
 import { useSync } from "../providers/SyncProvider";
-import { IDoc, ISync, readDocs } from "@firestore-sqlite-sync/core";
+import { IDoc, ISync, readDocs } from "../../../../packages/core/src";
 
 export const ColumnNames: IDoc = {
   name: "Name",
