@@ -2,16 +2,33 @@
   "name": "firestore-sqlite-sync",
   "version": "0.1.18",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/electron",
+      "**/electron/**",
+      "**/electron-forge",
+      "**/electron-forge/**",
+      "**/electron-squirrel-startup",
+      "**/electron-squirrel-startup/**",
+      "**/electron-rebuild",
+      "**/electron-rebuild/**",
+      "**/better-sqlite3",
+      "**/better-sqlite3/**"
+    ]
+  },
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run --scope=@firestore-sqlite-sync/* build",
     "watch": "lerna run --scope=@firestore-sqlite-sync/* build",
     "build-core": "yarn workspace @firestore-sqlite-sync/core run build",
     "watch-core": "yarn workspace @firestore-sqlite-sync/core run watch",
-    "publish": "yarn build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish --scope=@firestore-sqlite-sync/*"
+    "publish": "yarn build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish --scope=@firestore-sqlite-sync/*",
+    "start-react": "yarn workspace react-ts-app run start",
+    "clean": "lerna clean -y && rimraf node_modules",
+    "reinstall": "yarn run clean && yarn run bootstrap"
   },
   "// devDependencies": {
     "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
@@ -38,7 +55,10 @@
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
     "husky": "^4.2.5",
-    "cross-env": "7.0.2"
+    "cross-env": "7.0.2",
+    "@types/app-root-path": "^1.2.4",
+    "@types/better-sqlite3": "^5.4.0",
+    "rimraf": "*"
   },
   "husky": {
     "hooks": {

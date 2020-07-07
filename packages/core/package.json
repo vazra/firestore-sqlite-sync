@@ -12,14 +12,14 @@
     "format": "prettier --write \"src/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --coverage",
-    "prepare": "yarn build",
     "kkprepublishOnly": "yarn test && yarn lint",
     "preversion": "yarn lint",
     "kkversion": "yarn format && git add -A src",
     "kkpostversion": "git push && git push --tags",
     "clean": "shx rm -rf lib/*",
     "kktest": "mocha --ui qunit",
-    "testall": "mocha --ui qunit dist/sample/test"
+    "testall": "mocha --ui qunit dist/sample/test",
+    "rebuild": "electron-rebuild -f -w better-sqlite3 -v 9.0.5"
   },
   "files": [
     "lib"
@@ -38,8 +38,8 @@
     "firebase": "7.x"
   },
   "devDependencies": {
-    "@types/app-root-path": "^1.2.4",
-    "@types/better-sqlite3": "^5.4.0"
+    "better-sqlite3": "7.1.0",
+    "electron-rebuild": "^1.11.0"
   },
   "repository": {
     "type": "git",

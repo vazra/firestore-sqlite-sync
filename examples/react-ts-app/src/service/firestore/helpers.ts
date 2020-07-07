@@ -1,4 +1,4 @@
-import { IDoc } from "../../../../../packages/core/src";
+import { IDoc } from "@firestore-sqlite-sync/core";
 
 export const dataFromSnapshot = <T>(snapshot: firebase.firestore.DocumentData): IDoc | undefined => {
   if (!snapshot.exists) {

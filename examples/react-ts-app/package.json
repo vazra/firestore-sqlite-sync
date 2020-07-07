@@ -10,7 +10,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts .",
-    "rebuild": "electron-rebuild -f -w better-sqlite3"
+    "rebuild-sqlite": "electron-rebuild -f -w better-sqlite3"
   },
   "keywords": [],
   "author": {
@@ -79,7 +79,7 @@
     "@typescript-eslint/parser": "^2.18.0",
     "css-loader": "^3.0.0",
     "dotenv": "^8.2.0",
-    "electron": "9.0.5",
+    "electron": "8.4.0",
     "electron-rebuild": "^1.11.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",

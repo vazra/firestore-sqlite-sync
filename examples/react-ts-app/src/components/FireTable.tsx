@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { dataFromSnapshot } from "../service/firestore/helpers";
-import { IDoc, updateWithSync } from "../../../../packages/core/src";
+import { IDoc, updateWithSync } from "@firestore-sqlite-sync/core";
 import { ColumnNames } from "./LocalTable";
 
 import { useSync } from "../providers/SyncProvider";
