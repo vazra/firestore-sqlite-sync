@@ -1,7 +1,7 @@
 {
   "name": "@firestore-sqlite-sync/core",
   "private": false,
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "Sync selected collections from firebase-firestore to local sqlite database",
   "main": "lib/cjs/index.js",
   "module": "lib/es/index.js",
