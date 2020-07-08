@@ -4,6 +4,7 @@ const finishHOT = hot(module);
 import Home from "./pages/Home";
 import { fdb } from "./service/firestore/app";
 import { getDBDir } from "./utils";
+import { BackboneProvider } from "./providers/BackboneProvider";
 // import { SyncProvider } from "./providers/SyncProvider";
 // import { ISyncConfig } from '@firestore-sqlite-sync/core'
 
@@ -26,7 +27,9 @@ import { getDBDir } from "./utils";
 function App() {
   return (
     // <SyncProvider fireDB={fdb}>
-    <Home />
+    <BackboneProvider>
+      <Home />
+    </BackboneProvider>
     // </SyncProvider>
   );
 }

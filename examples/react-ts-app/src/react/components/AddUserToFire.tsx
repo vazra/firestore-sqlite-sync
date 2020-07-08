@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import faker from "faker";
 import { useSync } from "../providers/SyncProvider";
-import { IDoc, insertWithSync } from "@firestore-sqlite-sync/core";
+// import { IDoc, insertWithSync } from "@firestore-sqlite-sync/core";
+import { IDoc } from "@firestore-sqlite-sync/core";
 interface IAddUserToFire {
   tableName: string;
 }
@@ -61,7 +62,7 @@ export function AddUserToFire({ tableName }: IAddUserToFire) {
           <Button
             onClick={async () => {
               setLoading(true);
-              sync && (await insertWithSync(sync, tableName, newItem));
+              // sync && (await insertWithSync(sync, tableName, newItem));
               setNewItem(crateDummy(tableName));
               setLoading(false);
             }}

@@ -3,6 +3,7 @@ import { Container, Navbar, Nav, Card } from "react-bootstrap";
 import { version } from "./../../../package.json";
 import logo from "../logo.svg";
 import FireDashboard from "./FireDashboard";
+import IPCTest from "../components/IPCTest";
 
 export function Home() {
   return (
@@ -24,6 +25,7 @@ export function Home() {
       </header>
       <main>
         <Container>
+          <IPCTest />
           <Card className="p-3 mb-5 text-center text-light bg-dark">
             <h1> SQLite - Firestore Sync</h1>
           </Card>

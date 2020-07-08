@@ -6,7 +6,8 @@ import { Spinner } from "react-bootstrap";
 import AddUserToFire from "./AddUserToFire";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { dataFromSnapshot } from "../service/firestore/helpers";
-import { IDoc, updateWithSync } from "@firestore-sqlite-sync/core";
+// import { IDoc, updateWithSync } from "@firestore-sqlite-sync/core";
+import { IDoc } from "@firestore-sqlite-sync/core";
 import { ColumnNames } from "./LocalTable";
 
 import { useSync } from "../providers/SyncProvider";
@@ -24,7 +25,7 @@ export function FireTable({ collection }: IFireTable) {
     <span
       onClick={async () => {
         setLoading(true);
-        sync && cell && updateWithSync(sync, collection, cell, { del: true });
+        // sync && cell && updateWithSync(sync, collection, cell, { del: true });
         setLoading(false);
       }}
     >
@@ -78,7 +79,7 @@ export function FireTable({ collection }: IFireTable) {
     console.log("Editing id ", rowId);
     const updateDoc: { [key: string]: any } = {};
     updateDoc[dataField] = newValue;
-    sync && (await updateWithSync(sync, collection, rowId, updateDoc));
+    // sync && (await updateWithSync(sync, collection, rowId, updateDoc));
     setLoading(false);
   };
 

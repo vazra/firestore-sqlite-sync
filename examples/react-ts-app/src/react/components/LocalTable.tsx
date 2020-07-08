@@ -3,7 +3,8 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
 import { useSync } from "../providers/SyncProvider";
-import { IDoc, ISync, readDocs } from "@firestore-sqlite-sync/core";
+// import { IDoc, ISync, readDocs } from "@firestore-sqlite-sync/core";
+import { IDoc, ISync } from "@firestore-sqlite-sync/core";
 
 export const ColumnNames: IDoc = {
   name: "Name",
@@ -17,7 +18,7 @@ export const ColumnNames: IDoc = {
 };
 
 const getAllFromTable = async (sync: ISync, tableName: string) => {
-  return await readDocs("users", 1000, 0);
+  return; // await readDocs("users", 1000, 0);
   // const db = await sync.db
   // console.log('kkk getAllFromTable db', db)
   // return await db(tableName).select()
@@ -47,14 +48,14 @@ export function LocalTable({ collection }: ILocalTable) {
   useEffect(() => {
     syncObj &&
       getAllFromTable(syncObj, collection).then((newUsers) => {
-        setItems(newUsers);
+        // setItems(newUsers);
       });
   }, [syncObj, collection]);
 
   const reloadTable = () => {
     syncObj &&
       getAllFromTable(syncObj, collection).then((newUsers) => {
-        setItems(newUsers);
+        // setItems(newUsers);
       });
   };
 
