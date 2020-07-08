@@ -41,9 +41,7 @@ export function FireDashboard() {
         <Col>
           <FireTable collection={tableName} />
         </Col>
-        <Col>
-          <LocalTable collection={tableName} />
-        </Col>
+        <Col>{/* <LocalTable collection={tableName} /> */}</Col>
       </Row>
       <Row>
         <Col>

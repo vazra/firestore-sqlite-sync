@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "dbpath": "./sync.sqlite",
+  "dbpath": "~/dev/test.sqlite3",
   "updatedTimeKey": "ut",
   "cooldownTime": 10000,
   "collections": {

@@ -9,7 +9,12 @@ import { ISyncConfig, ICollectionDetails, IField } from '.'
 // const config = require('/fssync.config.json')
 
 // TODO : validate congig.json
-export const SYNC_CONFIG: ISyncConfig = ({ ...defaultConfig } as unknown) as ISyncConfig // Be, careful when accessing this, ISyncConfig type may not enforce here, as the data is dynamically loadaed
+
+const electron = require('electron')
+const dbpath = (electron.app || electron.remote.app).getPath('userData') + '/db.sqlite3'
+console.log(dbpath)
+
+export const SYNC_CONFIG: ISyncConfig = ({ ...defaultConfig, dbpath } as unknown) as ISyncConfig // Be, careful when accessing this, ISyncConfig type may not enforce here, as the data is dynamically loadaed
 
 console.log('kkk SYNC_CONFIG: ', SYNC_CONFIG)
 const list = Object.keys(SYNC_CONFIG.collections)
