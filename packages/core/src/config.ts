@@ -1,6 +1,6 @@
 // import { ISyncConfig, ICollectionDetails, IField } from '.'
 // import { require as reqLib } from 'app-root-path'
-
+console.warn('Intializing Config')
 import defaultConfig from './default.config.json'
 import { ISyncConfig, ICollectionDetails, IField } from '.'
 // import config from 'fssync.config.json'

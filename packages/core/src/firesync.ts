@@ -1,3 +1,5 @@
+console.warn('Intializing Firesync')
+
 import { Timestamp, dataFromSnapshot } from './firestore'
 import { DOC_NAME_LAST_UPDATED, CNAME_SETTINGS } from './constants'
 import { getLastUpdatedTimeFromDB, setLastUpdatedTimeToDB, upsertDocs } from './localdb'

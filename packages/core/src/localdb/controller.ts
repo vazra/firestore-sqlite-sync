@@ -1,3 +1,5 @@
+console.warn('Intializing Controller')
+
 import { db } from './db'
 import { Statement } from 'better-sqlite3'
 import { WatchingCollections } from '../config'
@@ -20,15 +22,15 @@ const st_read_all = `SELECT * FROM $tablename LIMIT $count OFFSET $skip`
 const st_search = `SELECT * FROM $tablename WHERE $column LIKE %$query% LIMIT $count`
 
 const st_insert = (table: string, columns: IField[]) =>
-  `INSERT OR REPLACE INTO ${table} VALUES (id, ${columns && columns.map((col) => `$${col[0]}`).join(', ')})`
+  `INSERT OR REPLACE INTO ${table} VALUES ('id', ${columns && columns.map((col) => `$${col[0]}`).join(', ')})`
 
 const st_insert_ut = `INSERT OR REPLACE INTO ${SYNC_META_TABLE_NAME} VALUES (id, ${SYNC_META_TIME_FIELD})`
 const st_read_ut = `SELECT ${SYNC_META_TIME_FIELD} FROM ${SYNC_META_TABLE_NAME} WHERE id='$collection' `
 
-const st_create = (table: string, columns: IField[]) =>
-  `CREATE TABLE ${table} ( "id" TEXT PRIMARY KEY${
-    columns && columns.map((col) => `"${col[0]}" ${col[1] === 'number' ? 'INTEGER' : 'TEXT'}`).join(', ')
-  })`
+const st_create = (table: string, columns: IField[]) => {
+  const column_string = columns ? columns.map((col) => `, "${col[0]}" ${col[1] === 'number' ? 'INTEGER' : 'TEXT'}`).join(' ') : ''
+  return `CREATE TABLE ${table} ( "id" TEXT PRIMARY KEY ${column_string})`
+}
 
 /* HELPERS */
 
@@ -38,6 +40,7 @@ const createIfChanged = (tablename: string, fields: IField[]) => {
   const stmtTableMeta = db.prepare(st_meta).get(tablename)
   console.log('kkk stmtTableMeta - resp', stmtTableMeta)
   if (!stmtTableMeta) {
+    console.log(`kkk st_create(${tablename}): `, st_create(tablename, fields))
     db.exec(st_create(tablename, fields))
     return true
   }

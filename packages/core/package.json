@@ -19,7 +19,8 @@
     "clean": "shx rm -rf lib/*",
     "kktest": "mocha --ui qunit",
     "testall": "mocha --ui qunit dist/sample/test",
-    "rebuild": "electron-rebuild -f -w better-sqlite3 -v 9.0.5"
+    "rebuild": "electron-rebuild -f -w better-sqlite3 -v 9.0.5",
+    "push": "yarn build && yalc push"
   },
   "files": [
     "lib"

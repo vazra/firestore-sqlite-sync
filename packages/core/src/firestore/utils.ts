@@ -1,3 +1,5 @@
+console.warn('Intializing utils')
+
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { CNAME_SETTINGS, DOC_NAME_LAST_UPDATED } from '../constants'
