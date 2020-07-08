@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Navbar, Nav, Card } from "react-bootstrap";
-import { version } from "./../../package.json";
+import { version } from "./../../../package.json";
 import logo from "../logo.svg";
 import FireDashboard from "./FireDashboard";
 
