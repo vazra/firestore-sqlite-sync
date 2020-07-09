@@ -89,6 +89,7 @@
     "@typescript-eslint/parser": "^2.18.0",
     "css-loader": "^3.0.0",
     "dotenv": "^8.2.0",
+    "dotenv-webpack": "^2.0.0",
     "electron": "8.4.0",
     "electron-rebuild": "^1.11.0",
     "eslint": "^6.8.0",
