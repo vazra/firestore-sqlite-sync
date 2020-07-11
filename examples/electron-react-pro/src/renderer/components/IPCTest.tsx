@@ -20,6 +20,23 @@ export function IPCTest() {
       </button>
       <button
         onClick={async () => {
+          let resp = await send('get-persons', {})
+          console.log('ppp res: (get-persons)', resp)
+          setResult(`Persons : (${resp})`)
+        }}>
+        Get From DB
+      </button>
+      <button
+        onClick={async () => {
+          setNum(num + 1)
+          let resp = await send('add-person', { num: num })
+          console.log('ppp res: (add-person)', resp)
+          setResult(`Added - (${resp})`)
+        }}>
+        Add to DB
+      </button>
+      <button
+        onClick={async () => {
           console.log('ppp phone call')
           let resp = await send('ring-ring', { message: 'this is james' })
           console.log('ppp res:', resp)
