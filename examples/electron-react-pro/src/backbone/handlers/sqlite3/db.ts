@@ -1,8 +1,13 @@
 'use strict'
 import Database from 'better-sqlite3'
+import { getDBDir } from './path'
 
 // connect to database (will create if it doesn't exist
-const db = new Database('whatever.xxx')
+
+const dbPath = getDBDir('electronreactpro', 'erp.sqlite3')
+console.log('dbPath :', dbPath)
+
+const db = new Database(dbPath)
 
 // check to see if we already initialized this database
 let stmt = db.prepare(`SELECT name
