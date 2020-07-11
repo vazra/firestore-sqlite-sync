@@ -72,6 +72,7 @@
     "electron react parcel"
   ],
   "dependencies": {
+    "@firestore-sqlite-sync/core": "file:.yalc/@firestore-sqlite-sync/core",
     "better-sqlite3": "^7.1.0",
     "electron-is-dev": "1.2.0",
     "node-ipc": "^9.1.1",
