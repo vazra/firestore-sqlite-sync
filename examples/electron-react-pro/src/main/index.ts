@@ -71,7 +71,7 @@ function createBackgroundWindow(socketName: string) {
   })
   // serverWin.loadURL('http://localhost:53227')
 
-  serverWin.loadURL(`file://${path.join(__dirname, '../bb/index.html')}`)
+  serverWin.loadURL(`file://${path.join(__dirname, '../backbone/index.html')}`)
 
   serverWin.webContents.on('did-finish-load', () => {
     serverWin.webContents.send('set-socket', { name: socketName })
@@ -80,7 +80,7 @@ function createBackgroundWindow(socketName: string) {
 }
 
 function createBackgroundProcess(socketName: string) {
-  serverProcess = fork(path.join(__dirname, '../bb/server.js'), ['--subprocess', app.getVersion(), socketName])
+  serverProcess = fork(path.join(__dirname, '../backbone/server.js'), ['--subprocess', app.getVersion(), socketName])
 
   serverProcess.on('message', (msg) => {
     console.log(msg)
@@ -93,12 +93,12 @@ const createWindowsWithSocket = async () => {
 
   createWindow(serverSocket)
 
-  if (false) {
-    // if (isDev) {
-    createBackgroundWindow(serverSocket)
-  } else {
-    createBackgroundProcess(serverSocket)
-  }
+  // if (false) {
+  // if (isDev) {
+  //   createBackgroundWindow(serverSocket)
+  // } else {
+  //   createBackgroundProcess(serverSocket)
+  // }
 }
 
 // This method will be called when Electron has finished
