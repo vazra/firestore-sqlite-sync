@@ -7,60 +7,52 @@
   "license": "MIT",
   "main": "build/main/index.js",
   "scripts": {
-    "kk": "npm-run-all build:main build:backbone -p watch:react watch:electron ",
-    "dev": "npm-run-all clean -p watch:*",
-    "watch:react": "parcel src/renderer/index.html -p 53226 --dist-dir build/renderer --target=web --log-level info",
-    "watch:main": "parcel watch src/main/index.ts --dist-dir build/main --target=main --log-level info",
-    "watch:backbone": "parcel src/backbone/index.html -p 53227 --dist-dir build/backbone --target=backbone --log-level info",
-    "watch:electron": "wait-on build/main/index.js && wait-on http://localhost:53226 && cross-env ELECTRON_DEBUG=true electron .",
-    "build:main": "parcel build src/main/index.ts --dist-dir build/main --target=main --log-level info",
-    "build:backbone": "parcel build src/backbone/index.html --dist-dir build/backbone --target=backbone --log-level info",
-    "tswatch:backbone2": " mkdir -p build/bb && cp src/backbone/index.html build/bb/ && tsc -p tsconfig-bb.json -w",
-    "tswatch:main": "tsc -p tsconfig-main.json -w",
+    "dev": "npm-run-all clean -p  watch:main serve:*",
+    "dev-node": "cross-env BACKBONE_AS_NODE=1 npm-run-all clean -p serve:react watch:backbone watch:main serve:electron",
     "start": "npm-run-all clean -p build:* -s open-electron",
-    "kkwatch:backbone": "parcel src/backbone/index.html -p 53227 --dist-dir build/backbone --target=backbone --log-level info",
-    "parcel:main": "parcel watch src/main.ts --dist-dir build --target=main --log-level info",
-    "build:react": "parcel build src/react/index.html --dist-dir build --public-url=./",
-    "parce:build:main": "parcel build src/main.ts --dist-dir build --target electron",
+    "build": "npm-run-all clean -p build:*",
+    "serve:react": "parcel src/renderer/index.html -p 53226 --dist-dir build/renderer --target=web --log-level info",
+    "serve:backbone": "parcel src/backbone/index.html -p 53227 --dist-dir build/backbone --target=backbone --log-level info",
+    "serve:electron": "wait-on build/main/index.js && wait-on http://localhost:53226 && cross-env ELECTRON_DEBUG=true electron .",
+    "watch:backbone": "parcel watch src/backbone/server.ts --target node --dist-dir build --log-level info",
+    "watch:main": "tsc -p tsconfig-main.json -w",
+    "build:react": "parcel build src/renderer/index.html --dist-dir build/renderer --target=web --log-level info  --public-url=./",
+    "build:backbone": "parcel build src/backbone/server.ts --target node --dist-dir build --log-level info",
+    "build:main": "parcel build src/main/index.ts --dist-dir build/main --target=main --log-level info",
     "open-electron": "cross-env ELECTRON_IS_DEV=0 electron .",
-    "build": "npm-run-all clean --parallel build:*",
     "pack": "electron-builder --x64 --publish=never",
     "ship": "electron-builder --x64 --publish=always",
     "postinstall": "electron-builder install-app-deps",
     "clean": "rimraf .parcel-cache ./dist ./build .cache",
     "test-bundle": "bundlesize"
   },
-  "entries": [
-    {
-      "entry": "src/renderer/index.html",
-      "target": "web"
-    }
-  ],
   "targets": {
     "web": {
       "context": "browser",
       "includeNodeModules": true,
+      "outputFormat": "esmodule",
       "engines": {
         "electron": ">=9.x"
       }
     },
-    "main": {
-      "context": "electron-main",
+    "node": {
+      "context": "node",
       "includeNodeModules": true,
       "engines": {
+        "node": ">=12.x",
         "electron": ">=9.x"
       }
     },
     "backbone": {
-      "context": "electron-renderer",
-      "includeNodeModules": true,
+      "context": "browser",
+      "includeNodeModules": false,
       "engines": {
         "electron": ">=9.x"
       }
     }
   },
   "browserslist": [
-    "electron 9.0..0"
+    "electron 9.0.0"
   ],
   "bundlesize": [
     {
@@ -124,13 +116,13 @@
     "babel-jest": "^26.1.0",
     "bundlesize": "^0.18.0",
     "cross-env": "7.0.2",
-    "electron": "9.0.5",
+    "electron": "9.1.0",
     "electron-builder": "22.7.0",
     "firebase": "^7.16.0",
     "jest": "^26.1.0",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "parcel": "^2.0.0-nightly.330",
+    "parcel": "2.0.0-beta.1",
     "react-router-dom": "^5.2.0",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",

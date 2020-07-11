@@ -32,7 +32,6 @@ function createWindow(socketName: string) {
   console.log('Filet ot load...', filePath)
   mainWindow.loadURL(isDev ? 'http://localhost:53226' : filePath)
   // mainWindow.on('closed', () => (mainWindow = null))
-  console.log('kkk process.env.ELECTRON_DEBUG... ', process.env.ELECTRON_DEBUG)
 
   if (process.env.ELECTRON_DEBUG === 'true') {
     // Open the DevTools.
@@ -69,9 +68,9 @@ function createBackgroundWindow(socketName: string) {
       nodeIntegration: true,
     },
   })
-  // serverWin.loadURL('http://localhost:53227')
+  serverWin.loadURL('http://localhost:53227')
 
-  serverWin.loadURL(`file://${path.join(__dirname, '../backbone/index.html')}`)
+  // serverWin.loadURL(`file://${path.join(__dirname, '../backbone/index.html')}`)
 
   serverWin.webContents.on('did-finish-load', () => {
     serverWin.webContents.send('set-socket', { name: socketName })
@@ -80,7 +79,7 @@ function createBackgroundWindow(socketName: string) {
 }
 
 function createBackgroundProcess(socketName: string) {
-  serverProcess = fork(path.join(__dirname, '../backbone/server.js'), ['--subprocess', app.getVersion(), socketName])
+  serverProcess = fork(path.join(__dirname, '../node/server.js'), ['--subprocess', app.getVersion(), socketName])
 
   serverProcess.on('message', (msg) => {
     console.log(msg)
@@ -93,12 +92,11 @@ const createWindowsWithSocket = async () => {
 
   createWindow(serverSocket)
 
-  // if (false) {
-  // if (isDev) {
-  //   createBackgroundWindow(serverSocket)
-  // } else {
-  //   createBackgroundProcess(serverSocket)
-  // }
+  if (!isDev || process.env.BACKBONE_AS_NODE) {
+    createBackgroundProcess(serverSocket)
+  } else {
+    createBackgroundWindow(serverSocket)
+  }
 }
 
 // This method will be called when Electron has finished
