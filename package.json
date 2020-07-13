@@ -4,18 +4,11 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "examples/*"
+      "packages/*"
     ],
     "nohoist": [
       "**/electron",
-      "**/electron/**",
-      "**/electron-forge",
-      "**/electron-forge/**",
-      "**/electron-squirrel-startup",
-      "**/electron-squirrel-startup/**",
-      "**/electron-rebuild",
-      "**/electron-rebuild/**"
+      "**/electron/**"
     ]
   },
   "scripts": {
