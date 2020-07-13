@@ -1,4 +1,0 @@
-- [ ] Migrate to Parcel 2
-- [ ] build/dev & build/prod dirs.
-- [ ] Add proper GitIgnores.
-- [ ]
