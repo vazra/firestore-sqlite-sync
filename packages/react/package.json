@@ -1,6 +1,6 @@
 {
   "name": "@firestore-sqlite-sync/react",
-  "version": "0.1.17",
+  "version": "0.2.0",
   "private": false,
   "description": "React Provider ",
   "main": "lib/cjs/index.js",
@@ -23,10 +23,10 @@
     "push": "yarn build && yalc push"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
+    "@firestore-sqlite-sync/core": "*",
     "better-sqlite3": "7.1.0",
     "firebase": "7.x",
-    "@firestore-sqlite-sync/core": "*"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@firestore-sqlite-sync/core": "file:.yalc/@firestore-sqlite-sync/core",

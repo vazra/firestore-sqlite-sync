@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/vazra/firestore-sqlite-sync/compare/v0.1.23...v0.2.0) (2020-07-13)
+
+
+### Features
+
+* added react provider ([810ac52](https://github.com/vazra/firestore-sqlite-sync/commit/810ac52a9039d73e43bc2607cd47ee8d189a7be3))
+
+
+
+
+
 ## [0.1.17](https://github.com/vazra/firestore-sqlite-sync/compare/v0.1.16...v0.1.17) (2020-07-05)
 
 ### Bug Fixes
