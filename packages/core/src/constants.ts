@@ -1,4 +1,3 @@
-console.warn('Intializing Constants')
-
-export const CNAME_SETTINGS = 'settings'
-export const DOC_NAME_LAST_UPDATED = 'lastUpdated'
+export const TABLENAME_SETTINGS = 'settings'
+export const KEY_LAST_UPDATED = 'lastUpdated'
+export const KEY_UPDATED_TIME = 'ut'

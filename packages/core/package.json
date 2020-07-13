@@ -36,8 +36,7 @@
   },
   "peerDependencies": {
     "better-sqlite3": "^7.x",
-    "firebase": "7.x",
-    "electron": "*"
+    "firebase": "7.x"
   },
   "devDependencies": {
     "better-sqlite3": "7.1.0",

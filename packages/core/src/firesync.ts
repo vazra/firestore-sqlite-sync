@@ -1,10 +1,10 @@
-console.warn('Intializing Firesync')
-
-import { Timestamp, dataFromSnapshot } from './firestore'
-import { DOC_NAME_LAST_UPDATED, CNAME_SETTINGS } from './constants'
-import { getLastUpdatedTimeFromDB, setLastUpdatedTimeToDB, upsertDocs } from './localdb'
-import { SYNC_CONFIG, WatchingCollections } from './config'
-import { IDoc, IFireDB } from '.'
+import LocalDB from './localdb'
+import { IDoc } from '.'
+import { Database } from 'better-sqlite3'
+import { ICollectionDetails } from './types'
+import FireDB, { Timestamp, IFireDB } from './firedb'
+import { TABLENAME_SETTINGS, KEY_LAST_UPDATED } from './constants'
+import { dataFromSnapshot } from './firedb/helpers'
 
 // CONFIF ---> DETAILS
 // settingsCollectionName : collection name to be saved in the firestore to save the last updated time.
@@ -18,19 +18,21 @@ import { IDoc, IFireDB } from '.'
 // Note: You can either use this method or decided when you want sync your data based on how you are consuming the data, and how often it will be updated.
 
 // sync all services
-export class Sync {
+export class FireSync {
   // sync database
   lastUpdated: IDoc = {} // { [key: string]: any } = {};
 
   listner: () => void // TODO: (test)what if the listener creation failed once
-  firedb: IFireDB
+  fireDB: FireDB
+  localDB: LocalDB
 
-  constructor(firedb: IFireDB) {
+  constructor(firestoreInstance: IFireDB, sqliteDB: Database, collDetails: ICollectionDetails) {
     // setting up watching collections
     // TODO : (later) add a test here to make sure that the firebase db is initiated correctly.
 
     // TODO : (test) make sure that default config values are overwritten, when provided in the config
-    this.firedb = firedb
+    this.fireDB = new FireDB(firestoreInstance, collDetails)
+    this.localDB = new LocalDB(sqliteDB, collDetails)
 
     // setup db for sync
     this.listner = this._createSyncListner()
@@ -42,7 +44,7 @@ export class Sync {
     // if there is a listener on the object.. remove it before adding new.
     this.listner && this.listner()
 
-    const lastUpdatedRef = this.firedb.collection(SYNC_CONFIG.settingsCollectionName || CNAME_SETTINGS).doc(DOC_NAME_LAST_UPDATED)
+    const lastUpdatedRef = this.fireDB.db.collection(TABLENAME_SETTINGS).doc(KEY_LAST_UPDATED)
 
     return lastUpdatedRef.onSnapshot(async (doc) => {
       // TODO : Implement debounce for sync call
@@ -58,8 +60,9 @@ export class Sync {
       }
       console.log('kkk new snapshot : ', newDoc)
 
-      for (const aTable of WatchingCollections.list) {
-        const LATimeFromServer = newDoc[aTable].toMillis() || 0
+      for (const aTable of this.localDB.tables) {
+        console.log('table -', aTable, newDoc[aTable])
+        const LATimeFromServer = (newDoc[aTable] && newDoc[aTable].toMillis()) || 0
         const LATimeFromLocal = this.lastUpdated[aTable] || 0
 
         if (!LATimeFromServer) {
@@ -89,32 +92,41 @@ export class Sync {
 
   // when something is changed call this function to sync the respective collection.
   async _syncTable(tableName: string) {
-    console.log('kkk START SYNC >>> ', tableName)
-    const luTimeFromDB = getLastUpdatedTimeFromDB(tableName)
+    console.log('kkk Synching >>> ', tableName)
+    const luTimeFromDB = this.localDB.getLastUpdatedTimeFromDB(tableName)
     const luTimestamp = Timestamp.fromMillis(luTimeFromDB)
     // call firestore request with last updated time.
-    this.firedb
+    console.log(`fetching firestore data with ut ${luTimeFromDB}`)
+    this.fireDB.db
       .collection(tableName)
       .where('ut', '>', luTimestamp)
       .get()
       .then(async (querySnapshot) => {
         if (querySnapshot.docs.length === 0) return // if no docs are available, return
+        console.log(`fetched ${querySnapshot.docs.length} item from firestore`)
 
         // get add docs from the snapshot..
 
         const docs = querySnapshot.docs.map((doc) => dataFromSnapshot(doc)).filter((doc) => doc !== undefined) as IDoc[]
 
         const newLatestUpdatedTime = Math.max(...docs.map((aDoc) => aDoc?.ut?.toMillis() || 0), 0)
-        console.log(`kkk got ${querySnapshot.docs.length} items from server , last_update (${newLatestUpdatedTime} << old-${luTimeFromDB})`)
+        console.log(
+          `last updated time based on the fetched data is  ${newLatestUpdatedTime} (old was ${
+            luTimeFromDB === newLatestUpdatedTime ? 'same' : luTimeFromDB
+          })`
+        )
+
+        // console.log(`kkk got ${querySnapshot.docs.length} items from server , last_update (${newLatestUpdatedTime} << old-${luTimeFromDB})`)
 
         // saving to db with chunks of 50
         const chunk = 50
         for (let i = 0; i * chunk < docs.length; i += chunk) {
           let chunkDocs = docs.slice(i, i + chunk)
-          upsertDocs(tableName, chunkDocs)
+          this.localDB.upsert(tableName, chunkDocs)
         }
 
-        setLastUpdatedTimeToDB(tableName, newLatestUpdatedTime)
+        this.localDB.setLastUpdatedTimeToDB(tableName, newLatestUpdatedTime)
+        console.log(`saving last updated time to sqlite for table ${tableName} -> ${newLatestUpdatedTime}`)
       })
       .catch(function (error) {
         console.log('kkk Error getting documents: ', error)
@@ -122,16 +134,9 @@ export class Sync {
   }
 }
 
-let sync: Sync
+// export type IFireSync = InstanceType<typeof FireSync>
 
-export const initSync = (firedb: IFireDB) => {
-  // don't re-initiate the sync, if doing so make sure to remove all listeners from the previous sync.
-  if (!sync) sync = new Sync(firedb)
-  else console.warn('Sync is already initialized, returning the old sync')
-  return sync
-}
-
-export type ISync = InstanceType<typeof Sync>
+export default FireSync
 
 // TODO : (test) what will happen it multiple updates came before completing the first update?
 // TODO : (test) on dev env when tested with hot-reloading in webpack, when the code in this file is changed the onSnapshot listeners were being added additionally. when that happens, the onSnapshot will be called multiple times for a single data change. check if there is any possible scenarios like this in real-word usecase.

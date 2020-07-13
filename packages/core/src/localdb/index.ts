@@ -108,8 +108,11 @@ export default class LocalDB {
   }
 
   getLastUpdatedTimeFromDB = (tablename: string): number => {
-    const { ut } = this.db.prepare(`SELECT ${SYNC_META_TIME_FIELD} FROM ${SYNC_META_TABLE_NAME} WHERE id='$tablename' `).get({ tablename })
-    return ut || 0
+    const syncmeta = this.db.prepare(`SELECT ${SYNC_META_TIME_FIELD} FROM ${SYNC_META_TABLE_NAME} WHERE id=? `).get([tablename])
+
+    console.log(`getLastUpdatedTimeFromDB statement- ${`SELECT ${SYNC_META_TIME_FIELD} FROM ${SYNC_META_TABLE_NAME} WHERE id=? `}`)
+    console.log(`getLastUpdatedTimeFromDB syncmeta- ${tablename}`, syncmeta)
+    return syncmeta?.ut || 0
   }
 
   setLastUpdatedTimeToDB = (tablename: string, time: number) => {
