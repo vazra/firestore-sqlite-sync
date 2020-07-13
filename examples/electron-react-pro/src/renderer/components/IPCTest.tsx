@@ -1,10 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useBackbone } from '../providers/BackboneProvider'
+import sqlite3, { Database } from 'better-sqlite3'
 
 export function IPCTest() {
   const [result, setResult] = useState<string>('N/A')
+  const [dbURL, setDBURL] = useState<string>('')
+  const [db, setDB] = useState<Database | ''>('')
   const [num, setNum] = useState<number>(5)
   const { send } = useBackbone()
+
+  useEffect(() => {
+    const db = window.sqlitedb // dbURL && new sqlite3(dbURL)
+    // setDB(db)
+    const row = db && db.prepare('SELECT * FROM persons').get()
+    console.log('getPersons', row)
+    console.log(JSON.stringify(row))
+  }, [dbURL])
+
   return (
     <div>
       {num}
@@ -44,7 +56,17 @@ export function IPCTest() {
         }}>
         Make phone call
       </button>
+      <button
+        onClick={async () => {
+          console.log('click - get db ')
+          let resp = await send('get-db', {})
+          console.log('ppp res(get-db):', resp)
+          setDBURL(resp as string)
+        }}>
+        GetDB
+      </button>
       <div>{result}</div>
+      <div> DB : {JSON.stringify(db)} </div>
     </div>
   )
 }
