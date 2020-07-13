@@ -1,9 +1,11 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, screen } from 'electron'
 import * as path from 'path'
 import isDev from 'electron-is-dev'
 import { fork, ChildProcess } from 'child_process'
 import findOpenSocket from './find-open-socket'
 
+// TODO : Implement proper CSP and remove this warning
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 // // Let electron reloads by itself
 // if (
 //   process.env.ELECTRON_DEBUG === "true" ||
@@ -14,17 +16,26 @@ import findOpenSocket from './find-open-socket'
 // }
 
 let serverProcess: ChildProcess | null
+const isNodeBackbone = !!process.env.BACKBONE_AS_NODE
 
 function createWindow(socketName: string) {
   // Create the browser window.
   console.log('kkk creating window... ')
   console.log('kkk isDev... ', isDev)
+  const screenSize = screen.getPrimaryDisplay().workAreaSize
+
+  const width = isNodeBackbone ? screenSize.width : screenSize.width * 0.75
+  const height = screenSize.height
+
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 680,
+    x: 0,
+    y: 0,
+    width,
+    height,
     webPreferences: {
       nodeIntegration: false,
       preload: path.join(__dirname, '../main/client-preload.js'),
+      enableRemoteModule: true,
     },
   })
 
@@ -58,11 +69,14 @@ function createWindow(socketName: string) {
 }
 
 function createBackgroundWindow(socketName: string) {
+  const screenSize = screen.getPrimaryDisplay().workAreaSize
+  const width = screenSize.width * 0.25
+  const height = screenSize.height
   const serverWin = new BrowserWindow({
-    x: 500,
-    y: 300,
-    width: 700,
-    height: 500,
+    x: screenSize.width * 0.75,
+    y: 0,
+    width,
+    height,
     show: true,
     webPreferences: {
       nodeIntegration: true,
@@ -92,11 +106,11 @@ const createWindowsWithSocket = async () => {
 
   createWindow(serverSocket)
 
-  if (!isDev || process.env.BACKBONE_AS_NODE) {
-    createBackgroundProcess(serverSocket)
-  } else {
-    createBackgroundWindow(serverSocket)
-  }
+  // if (!isDev || isNodeBackbone) {
+  //   createBackgroundProcess(serverSocket)
+  // } else {
+  //   createBackgroundWindow(serverSocket)
+  // }
 }
 
 // This method will be called when Electron has finished

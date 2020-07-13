@@ -1,12 +1,12 @@
 import { v4 } from 'uuid'
-
-export {}
+import { Database } from 'better-sqlite3'
 declare global {
   interface Window {
     getServerSocket: () => Promise<string>
     ipcConnect: any
     IS_DEV: boolean
     uuid: typeof v4
+    sqlitedb: Database
   }
 }
 
