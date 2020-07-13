@@ -60,5 +60,6 @@
   },
   "bugs": {
     "url": "https://github.com/vazra/firestore-sqlite-sync/issues"
-  }
+  },
+  "gitHead": "cf7f2fe8e62fc9454710a8611382bcf84c355c8f"
 }
