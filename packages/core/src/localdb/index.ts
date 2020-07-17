@@ -91,14 +91,24 @@ export default class LocalDB {
   }
 
   // Search in a table
-  search = (tablename: string, query: string, order: string[], count: number) => {
+  search: (tablename: string, query: string, order: string[], count: number) => IDoc[] = (tablename, query, order, count) => {
     const searchResults: IDoc[] = []
+    const idsCache: string[] = []
     // search in each column with priority
+    console.log('ppp search for: ', query)
     for (const column of order) {
-      const docs = this.db.prepare(`SELECT * FROM ${tablename} WHERE ${column} LIKE %${query}% LIMIT ${count}`).all()
-      searchResults.push(...docs)
+      const NotInAlreayGot = `AND id NOT IN (${idsCache.map(() => '?').join(', ')}) `
+      console.log('ppp query: ', `SELECT * FROM ${tablename} WHERE ${column} LIKE '%${query}%' ${NotInAlreayGot}LIMIT ${count}`)
+      const docs = this.db.prepare(`SELECT * FROM ${tablename} WHERE ${column} LIKE '%${query}%' ${NotInAlreayGot}LIMIT ${count}`).all(idsCache)
+      console.log('ppp docs: ', docs)
+      for (const aDoc of docs) {
+        // to filter if same
+        !idsCache.includes(aDoc.id) && searchResults.push(aDoc)
+      }
+      idsCache.push(...docs.map((aDoc) => aDoc.id))
       if (searchResults.length >= count) break
     }
+    return searchResults
   }
 
   // readDocs from db
