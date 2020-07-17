@@ -1,5 +1,5 @@
 'use strict'
-import Database from 'better-sqlite3'
+import Database from 'moc-better-sqlite3'
 import { getDBDir } from './path'
 
 // connect to database (will create if it doesn't exist
