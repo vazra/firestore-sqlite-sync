@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/vazra/firestore-sqlite-sync/compare/v0.2.0...v0.2.1) (2020-07-17)
+
+
+### Bug Fixes
+
+* search duplicate issue ([190da79](https://github.com/vazra/firestore-sqlite-sync/commit/190da79cb4066254aeb560636c3120c8c4da33d3))
+
+
+
+
+
 # [0.2.0](https://github.com/vazra/firestore-sqlite-sync/compare/v0.1.23...v0.2.0) (2020-07-13)
 
 

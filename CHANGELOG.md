@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/vazra/firestore-sqlite-sync/compare/v0.2.0...v0.2.1) (2020-07-17)
+
+
+### Bug Fixes
+
+* fixed db connection ([a582b2e](https://github.com/vazra/firestore-sqlite-sync/commit/a582b2e00a26226bdba561bd9c6b65ff2a046ee0))
+* search duplicate issue ([190da79](https://github.com/vazra/firestore-sqlite-sync/commit/190da79cb4066254aeb560636c3120c8c4da33d3))
+* udpated db location to userdata ([5ff0a01](https://github.com/vazra/firestore-sqlite-sync/commit/5ff0a01f89e2947c2db995694b09b92cab0ad5e8))
+* udpated renderer ([01a9ed9](https://github.com/vazra/firestore-sqlite-sync/commit/01a9ed9af125a25385fec03ba65f533055e28a9a))
+
+
+### Features
+
+* added backbone node server ([adb9a08](https://github.com/vazra/firestore-sqlite-sync/commit/adb9a080299a46600db83fc5670235cc85c8a15c))
+* added handlers for db interaction ([e668e9a](https://github.com/vazra/firestore-sqlite-sync/commit/e668e9a221241176977ab49a6c05eebbfaec0e6b))
+* added helper components to test backbone ([acf01d0](https://github.com/vazra/firestore-sqlite-sync/commit/acf01d0d907326e68d20ce54cd6fac29b51c2d47))
+* added preload for the renderer process ([99a3d2a](https://github.com/vazra/firestore-sqlite-sync/commit/99a3d2a55cc17341080af2c6fa1d95d7115feddf))
+
+
+
+
+
 # [0.2.0](https://github.com/vazra/firestore-sqlite-sync/compare/v0.1.23...v0.2.0) (2020-07-13)
 
 
