@@ -17,7 +17,7 @@
     "watch": "lerna run --scope=@firestore-sqlite-sync/* build",
     "build-core": "yarn workspace @firestore-sqlite-sync/core run build",
     "watch-core": "yarn workspace @firestore-sqlite-sync/core run watch",
-    "publish": "yarn build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish --scope=@firestore-sqlite-sync/*",
+    "publish": "yarn build && lerna changed && cross-env HUSKY_BYPASS=true lerna publish",
     "start-react": "yarn workspace react-ts-app run start",
     "clean": "lerna clean -y && rimraf node_modules",
     "reinstall": "yarn run clean && yarn run bootstrap"
