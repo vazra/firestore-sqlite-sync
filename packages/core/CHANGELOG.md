@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/vazra/firestore-sqlite-sync/compare/v0.2.1...v0.2.2) (2020-07-19)
+
+
+### Bug Fixes
+
+* __dirname is not availabe in web env ([6ce6576](https://github.com/vazra/firestore-sqlite-sync/commit/6ce6576782acfcc0183d2a78f2864fa4f0554116))
+
+
+
+
+
 ## [0.2.1](https://github.com/vazra/firestore-sqlite-sync/compare/v0.2.0...v0.2.1) (2020-07-17)
 
 
