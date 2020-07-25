@@ -22,17 +22,17 @@ export class FireSync {
   // sync database
   lastUpdated: IDoc = {} // { [key: string]: any } = {};
 
-  listner: () => void // TODO: (test)what if the listener creation failed once
-  fireDB: FireDB
-  localDB: LocalDB
+  listner?: () => void // TODO: (test)what if the listener creation failed once
+  fireDB?: FireDB
+  localDB?: LocalDB
 
   constructor(firestoreInstance: IFireDB, sqliteDB: Database, collDetails: ICollectionDetails) {
     // setting up watching collections
     // TODO : (later) add a test here to make sure that the firebase db is initiated correctly.
 
     // TODO : (test) make sure that default config values are overwritten, when provided in the config
-    this.fireDB = new FireDB(firestoreInstance, collDetails)
-    this.localDB = new LocalDB(sqliteDB, collDetails)
+    this.fireDB = firestoreInstance && new FireDB(firestoreInstance, collDetails)
+    this.localDB = sqliteDB && new LocalDB(sqliteDB, collDetails)
 
     // setup db for sync
     this.listner = this._createSyncListner()
@@ -44,9 +44,9 @@ export class FireSync {
     // if there is a listener on the object.. remove it before adding new.
     this.listner && this.listner()
 
-    const lastUpdatedRef = this.fireDB.db.collection(TABLENAME_SETTINGS).doc(KEY_LAST_UPDATED)
+    const lastUpdatedRef = this.fireDB?.db.collection(TABLENAME_SETTINGS).doc(KEY_LAST_UPDATED)
 
-    return lastUpdatedRef.onSnapshot(async (doc) => {
+    return lastUpdatedRef?.onSnapshot(async (doc) => {
       // TODO : Implement debounce for sync call
 
       // ignore snapshots with hasPendingWrites (as the snapshot will contain "null" for the pending write field)
@@ -60,7 +60,7 @@ export class FireSync {
       }
       console.log('kkk new snapshot : ', newDoc)
 
-      for (const aTable of this.localDB.tables) {
+      for (const aTable of this.localDB?.tables || []) {
         console.log('table -', aTable, newDoc[aTable])
         const LATimeFromServer = (newDoc[aTable] && newDoc[aTable].toMillis()) || 0
         const LATimeFromLocal = this.lastUpdated[aTable] || 0
@@ -93,11 +93,11 @@ export class FireSync {
   // when something is changed call this function to sync the respective collection.
   async _syncTable(tableName: string) {
     console.log('kkk Synching >>> ', tableName)
-    const luTimeFromDB = this.localDB.getLastUpdatedTimeFromDB(tableName)
-    const luTimestamp = Timestamp.fromMillis(luTimeFromDB)
+    const luTimeFromDB = this.localDB?.getLastUpdatedTimeFromDB(tableName)
+    const luTimestamp = Timestamp.fromMillis(luTimeFromDB || Date.now()) // when db is not availabe consider now as last updated
     // call firestore request with last updated time.
     console.log(`fetching firestore data with ut ${luTimeFromDB}`)
-    this.fireDB.db
+    this.fireDB?.db
       .collection(tableName)
       .where('ut', '>', luTimestamp)
       .get()
@@ -122,10 +122,10 @@ export class FireSync {
         const chunk = 50
         for (let i = 0; i * chunk < docs.length; i += chunk) {
           let chunkDocs = docs.slice(i, i + chunk)
-          this.localDB.upsert(tableName, chunkDocs)
+          this.localDB?.upsert(tableName, chunkDocs)
         }
 
-        this.localDB.setLastUpdatedTimeToDB(tableName, newLatestUpdatedTime)
+        this.localDB?.setLastUpdatedTimeToDB(tableName, newLatestUpdatedTime)
         console.log(`saving last updated time to sqlite for table ${tableName} -> ${newLatestUpdatedTime}`)
       })
       .catch(function (error) {
