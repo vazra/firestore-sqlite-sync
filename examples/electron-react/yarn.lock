@@ -7894,10 +7894,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.4, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moc-better-sqlite3@^7.0.4:
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/moc-better-sqlite3/-/moc-better-sqlite3-7.0.4.tgz#29662c7f7fb1cad99a254b75f883af157491f06c"
-  integrity sha512-N5Rew+qNtRlrBb9TMXiXfli5zfXJJgfyxAAHHqIpUMp7ItiR4sUyH7bC7FY9Qf+kyc6z6nSZDs5SQXr23vYUSg==
+moc-better-sqlite3@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/moc-better-sqlite3/-/moc-better-sqlite3-7.1.1.tgz#9cc6bedfc9733e2263c810c4c8402d6389f9ddf1"
+  integrity sha512-+Rqhmv+zo4Louwnyxj/SVDl0/LQqh+QT8qMm1ie0nw6kol1z5aftAC4wTW0bUHcL1WGA1SyE3aJQ1sdxkDZfqQ==
   dependencies:
     bindings "^1.5.0"
     prebuild-install "^5.3.3"
