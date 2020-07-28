@@ -65,7 +65,7 @@
   "dependencies": {
     "@firestore-sqlite-sync/core": "file:../../packages/core",
     "@firestore-sqlite-sync/react": "file:../../packages/react",
-    "moc-better-sqlite3": "^7.0.4",
+    "moc-better-sqlite3": "^7.1.1",
     "bootstrap": "^4.5.0",
     "electron-is-dev": "1.2.0",
     "faker": "^4.1.0",
@@ -118,7 +118,7 @@
     "@types/react-bootstrap-table2-paginator": "^2.1.1",
     "@types/react-dom": "^16.9.8",
     "babel-jest": "^26.1.0",
-    "moc-better-sqlite3": "^7.0.4",
+    "moc-better-sqlite3": "^7.1.1",
     "bundlesize": "^0.18.0",
     "cross-env": "7.0.2",
     "dotenv": "^8.2.0",
