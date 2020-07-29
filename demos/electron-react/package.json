@@ -16,7 +16,7 @@
   "dependencies": {
     "@firestore-sqlite-sync/core": "^0.1.14",
     "@hot-loader/react-dom": "16.13.0",
-    "@types/lodash": "^4.14.157",
+    "@types/lodash": "^4.14.158",
     "bootstrap": "4.5.0",
     "dotenv": "^8.2.0",
     "electron-devtools-installer": "^3.1.1",
