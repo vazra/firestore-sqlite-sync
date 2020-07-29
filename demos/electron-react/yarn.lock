@@ -1183,12 +1183,12 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.41.tgz#4e470c25a99fa0b1f629f1c5ef180a318d399fd0"
   integrity sha512-XcdMT5PSZHiuf7LJIhzKIe+RyYa25S3LHRRvLnZc6iFjwXkrSDJ8J/HWO6VT8d2ZTbawp3VcLEjRF/VN8glCrA==
 
-"@firestore-sqlite-sync/core@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@firestore-sqlite-sync/core/-/core-0.1.14.tgz#7de5e1b63c1443987a514181b0e65ea6c9e1cdd4"
-  integrity sha512-rvOgw7qXcIdGy1bKVVyq1Gh8kHZIsbmK2cHtp4JJfSGFGR22UaiWkQYqrDmn+99CSruGg57eJGrGbZr1AxGskg==
+"@firestore-sqlite-sync/core@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@firestore-sqlite-sync/core/-/core-0.2.3.tgz#89e4967ff8870313966e0ad627b9c85214731d1d"
+  integrity sha512-jAi64HLpWdQb2gUPwvyCPTNlrXDoHs/FQwDK4DF975oGavkxglpMXcZZsqg/9rnxRhJQl8CGI6QBjEcycmUFlQ==
   dependencies:
-    knex "^0.21.1"
+    app-root-path "^3.0.0"
 
 "@grpc/grpc-js@^1.0.0":
   version "1.1.1"
@@ -1797,6 +1797,11 @@ app-builder-lib@22.8.0:
     sanitize-filename "^1.6.3"
     semver "^7.3.2"
     temp-file "^3.3.7"
+
+app-root-path@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.0.0.tgz#210b6f43873227e18a4b810a032283311555d5ad"
+  integrity sha512-qMcx+Gy2UZynHjOHOIXPNvpf+9cjvk3cWrBBK7zg4gH9+clobJRb9NGzcT7mQTcV/6Gm/1WelUtqxVXnNlrwcw==
 
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
