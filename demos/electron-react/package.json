@@ -29,7 +29,7 @@
     "react-bootstrap-table-next": "4.0.3",
     "react-bootstrap-table2-editor": "^1.4.0",
     "react-bootstrap-table2-paginator": "2.1.2",
-    "react-dom": "16.13.0",
+    "react-dom": "16.13.1",
     "react-hot-loader": "^4.12.21",
     "source-map-support": "^0.5.19",
     "sqlite3": "^5.0.0"
