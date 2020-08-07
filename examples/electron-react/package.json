@@ -126,7 +126,7 @@
     "electron-builder": "22.8.0",
     "jest": "^26.2.2",
     "npm-run-all": "^4.1.5",
-    "parcel": "2.0.0-nightly.358",
+    "parcel": "2.0.0-nightly.360",
     "rimraf": "^3.0.2",
     "typescript": "^3.9.7",
     "vazpack": "^1.0.11",
