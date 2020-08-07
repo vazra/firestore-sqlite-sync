@@ -17,7 +17,7 @@
     "@firestore-sqlite-sync/core": "^0.2.3",
     "@hot-loader/react-dom": "16.13.0",
     "@types/lodash": "^4.14.159",
-    "bootstrap": "4.5.1",
+    "bootstrap": "4.5.2",
     "dotenv": "^8.2.0",
     "electron-devtools-installer": "^3.1.1",
     "faker": "4.1.0",
