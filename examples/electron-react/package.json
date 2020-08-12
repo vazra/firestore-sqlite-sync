@@ -117,7 +117,7 @@
     "@types/react-bootstrap-table-next": "^4.0.6",
     "@types/react-bootstrap-table2-paginator": "^2.1.1",
     "@types/react-dom": "^16.9.8",
-    "babel-jest": "^26.2.2",
+    "babel-jest": "^26.3.0",
     "moc-better-sqlite3": "^7.1.1",
     "bundlesize": "^0.18.0",
     "cross-env": "7.0.2",
