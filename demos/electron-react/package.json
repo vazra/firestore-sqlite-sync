@@ -20,7 +20,7 @@
     "bootstrap": "4.5.2",
     "dotenv": "^8.2.0",
     "electron-devtools-installer": "^3.1.1",
-    "faker": "4.1.0",
+    "faker": "5.0.0",
     "firebase": "^7.19.0",
     "knex": "^0.21.5",
     "lodash": "^4.17.20",
