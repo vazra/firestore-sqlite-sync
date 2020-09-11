@@ -1401,10 +1401,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/react-bootstrap-table-next@*", "@types/react-bootstrap-table-next@4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@types/react-bootstrap-table-next/-/react-bootstrap-table-next-4.0.6.tgz#825293a49f7d042dc97484e467a9950171830695"
-  integrity sha512-ydbWGd0xJIGUZSkJG0Dasb7WW2XCsKMSAjLYWEEOqguPAPoS5cy2hmNUwIrJpgz6PDiMbRpg7plAc8+CO8+puw==
+"@types/react-bootstrap-table-next@*", "@types/react-bootstrap-table-next@4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@types/react-bootstrap-table-next/-/react-bootstrap-table-next-4.0.7.tgz#c43fab5f080c9855e309d1734e0fa1aac2e1ce7f"
+  integrity sha512-f8zOBKZTTJFhMktiEiIXtt06OIHIHns7pOZH9WAnzFzUop8/TVIRmMDpvWFfGAGewW+UAgi9TlNIzc5gBO5S/Q==
   dependencies:
     "@types/react" "*"
 
