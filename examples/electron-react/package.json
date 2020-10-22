@@ -76,7 +76,7 @@
     "react-bootstrap-table-next": "^4.0.3",
     "react-bootstrap-table2-editor": "^1.4.0",
     "react-bootstrap-table2-paginator": "^2.1.2",
-    "react-dom": "16.13.1"
+    "react-dom": "16.14.0"
   },
   "build": {
     "appId": "io.githubvazra.electron",
