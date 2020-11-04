@@ -107,7 +107,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
-    "@types/better-sqlite3": "^5.4.0",
+    "@types/better-sqlite3": "^5.4.1",
     "@types/bootstrap": "^5.0.0",
     "@types/faker": "^5.1.4",
     "@types/jest": "^26.0.15",
