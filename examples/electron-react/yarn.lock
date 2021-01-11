@@ -2269,10 +2269,10 @@
     chrome-trace-event "^1.0.2"
     nullthrows "^1.1.1"
 
-"@popperjs/core@^2.0.0":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
-  integrity sha512-1oO6+dN5kdIA3sKPZhRGJTfGVP4SWV6KqlMOwry4J3HfyD68sl/3KmG7DeYUzvN+RbhXDnv/D8vNNB8168tAMg==
+"@popperjs/core@^2.0.0", "@popperjs/core@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -2430,13 +2430,13 @@
   dependencies:
     "@types/integer" "*"
 
-"@types/bootstrap@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.1.tgz#e3edb2f2932bea6cdff93c6a30927dea1689c8c2"
-  integrity sha512-Rlq+HhyAFlPS+sRKToFXuxPTkm0rALPp4whWaQVwsldCl+s8ctsguIsoywhuytQAn2OZUIwAaQYHNXT7Obb01Q==
+"@types/bootstrap@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.3.tgz#b7c6f575a4545be9f34cce3807944a15972d0699"
+  integrity sha512-9cRXS7/kOfj2O3VpVNqPE+g46BHpWYepVL4/y9khyJ8GhaUvSXlvrtO5fjNCrglakuHKk6obKLvgVc77T3GAjQ==
   dependencies:
+    "@popperjs/core" "^2.6.0"
     "@types/jquery" "*"
-    popper.js "^1.14.1"
 
 "@types/classnames@^2.2.10":
   version "2.2.10"
@@ -7828,11 +7828,6 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
-
-popper.js@^1.14.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
-  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
