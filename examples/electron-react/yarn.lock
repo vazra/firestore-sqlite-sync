@@ -2430,10 +2430,10 @@
   dependencies:
     "@types/integer" "*"
 
-"@types/bootstrap@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.3.tgz#b7c6f575a4545be9f34cce3807944a15972d0699"
-  integrity sha512-9cRXS7/kOfj2O3VpVNqPE+g46BHpWYepVL4/y9khyJ8GhaUvSXlvrtO5fjNCrglakuHKk6obKLvgVc77T3GAjQ==
+"@types/bootstrap@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.4.tgz#412d5d0c608cd00cf9f46bffb7ac416bb9864288"
+  integrity sha512-Awa1onTcDziszyFDAAa2AawwYCQamGBLqR3YuRhJHJNlAFKwpfzsE+lfSyKtwxRNEImpkWevhOuwo0yPadd3hA==
   dependencies:
     "@popperjs/core" "^2.6.0"
     "@types/jquery" "*"
