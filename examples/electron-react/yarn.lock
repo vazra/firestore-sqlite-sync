@@ -2431,10 +2431,10 @@
   dependencies:
     "@types/integer" "*"
 
-"@types/bootstrap@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.4.tgz#412d5d0c608cd00cf9f46bffb7ac416bb9864288"
-  integrity sha512-Awa1onTcDziszyFDAAa2AawwYCQamGBLqR3YuRhJHJNlAFKwpfzsE+lfSyKtwxRNEImpkWevhOuwo0yPadd3hA==
+"@types/bootstrap@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.0.5.tgz#9cd626041dd0c17b9d00ee8daba6f49f1405e14f"
+  integrity sha512-3MzaNlPzVmsPGax33zmLOWBV6Yp1ayW2AO1kAJy1KuRL8SIbQWJgIqVt5YXZxkQHiXCZFcLHn0oGp9iOzjnE7A==
   dependencies:
     "@popperjs/core" "^2.6.0"
     "@types/jquery" "*"
