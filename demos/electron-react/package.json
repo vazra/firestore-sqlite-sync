@@ -23,7 +23,7 @@
     "faker": "5.2.0",
     "firebase": "^7.24.0",
     "knex": "^0.95.11",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "react": "16.14.0",
     "react-bootstrap": "1.4.3",
     "react-bootstrap-table-next": "4.0.3",
