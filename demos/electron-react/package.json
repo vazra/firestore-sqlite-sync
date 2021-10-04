@@ -16,11 +16,11 @@
   "dependencies": {
     "@firestore-sqlite-sync/core": "^0.2.3",
     "@hot-loader/react-dom": "16.14.0",
-    "@types/lodash": "^4.14.168",
+    "@types/lodash": "^4.14.175",
     "bootstrap": "4.6.0",
     "dotenv": "^8.2.0",
     "electron-devtools-installer": "^3.2.0",
-    "faker": "5.2.0",
+    "faker": "5.5.3",
     "firebase": "^7.24.0",
     "knex": "^0.95.11",
     "lodash": "^4.17.21",
@@ -35,7 +35,7 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-react": "^7.14.5",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/faker": "5.5.8",
     "@types/generic-pool": "^3.1.10",
