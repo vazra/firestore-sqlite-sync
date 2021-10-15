@@ -70,7 +70,7 @@
     "electron-is-dev": "2.0.0",
     "faker": "^5.5.3",
     "firebase": "^7.24.0",
-    "google-auth-library": "^7.10.0",
+    "google-auth-library": "^7.10.1",
     "react": "16.14.0",
     "react-bootstrap": "^1.6.4",
     "react-bootstrap-table-next": "^4.0.3",
