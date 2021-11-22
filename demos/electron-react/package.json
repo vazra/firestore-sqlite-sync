@@ -31,7 +31,7 @@
     "react-bootstrap-table2-paginator": "2.1.2",
     "react-dom": "16.14.0",
     "react-hot-loader": "^4.13.0",
-    "source-map-support": "^0.5.20",
+    "source-map-support": "^0.5.21",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "@types/faker": "5.5.9",
     "@types/generic-pool": "^3.1.10",
     "@types/node": "^16.11.8",
-    "@types/react": "^17.0.35",
+    "@types/react": "^17.0.36",
     "@types/react-bootstrap-table-next": "4.0.16",
     "@types/react-bootstrap-table2-paginator": "2.1.2",
     "@types/react-dom": "^17.0.11",
