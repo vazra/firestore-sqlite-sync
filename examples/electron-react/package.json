@@ -103,7 +103,7 @@
     "@babel/core": "^7.16.0",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
-    "@babel/plugin-transform-react-jsx": "^7.16.0",
+    "@babel/plugin-transform-react-jsx": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.5",
@@ -111,7 +111,7 @@
     "@types/bootstrap": "^5.1.6",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.12",
+    "@types/node": "^16.11.13",
     "@types/react": "^17.0.37",
     "@types/react-bootstrap": "^1.0.1",
     "@types/react-bootstrap-table-next": "^4.0.16",
@@ -128,7 +128,7 @@
     "npm-run-all": "^4.1.5",
     "parcel": "2.0.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.5.3",
+    "typescript": "^4.5.4",
     "vazpack": "^1.0.11",
     "wait-on": "6.0.0"
   }
