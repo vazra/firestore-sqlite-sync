@@ -2395,10 +2395,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/bootstrap@^5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.1.6.tgz#669a0cd7fb37bca12424e0d68f1f4704cfcdb780"
-  integrity sha512-3L6IvOCKyoVd3e4bgQTH7VBPbuYEOG8IQbRcuZ0AbjfwPdRX+kVf5L/7mVt1EVM+D/BVw4+71rtp7Z8yYROlpQ==
+"@types/bootstrap@^5.1.8":
+  version "5.1.8"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.1.8.tgz#4f2a8d361882774f0d93a8d48560c7ba95285e30"
+  integrity sha512-URBC3yNAyokyZzZAVv8/KRMDpn+ScfWPVE9p1oK6aG3M5ce9CogQ/e5i9BEqmVdhl0UAFnvVSck1nHtI1dynew==
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@types/jquery" "*"
