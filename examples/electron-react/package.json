@@ -121,7 +121,7 @@
     "moc-better-sqlite3": "^7.1.1",
     "bundlesize": "^0.18.1",
     "cross-env": "7.0.3",
-    "dotenv": "^15.0.0",
+    "dotenv": "^16.0.0",
     "electron": "9.1.0",
     "electron-builder": "22.14.5",
     "jest": "^27.4.7",
