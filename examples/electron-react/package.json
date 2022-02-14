@@ -130,6 +130,6 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5",
     "vazpack": "^1.0.11",
-    "wait-on": "6.0.0"
+    "wait-on": "6.0.1"
   }
 }
