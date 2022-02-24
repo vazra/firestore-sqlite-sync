@@ -110,7 +110,7 @@
     "@types/better-sqlite3": "^7.4.2",
     "@types/bootstrap": "^5.1.9",
     "@types/faker": "^6.6.9",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/node": "^17.0.19",
     "@types/react": "^17.0.39",
     "@types/react-bootstrap": "^1.0.1",
