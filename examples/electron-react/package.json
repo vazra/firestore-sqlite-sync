@@ -71,7 +71,7 @@
     "faker": "^6.6.6",
     "firebase": "^9.6.10",
     "google-auth-library": "^7.14.1",
-    "react": "17.0.2",
+    "react": "18.0.0",
     "react-bootstrap": "^2.2.2",
     "react-bootstrap-table-next": "^4.0.3",
     "react-bootstrap-table2-editor": "^1.4.0",
