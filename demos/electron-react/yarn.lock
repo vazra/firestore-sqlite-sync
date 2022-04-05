@@ -2739,10 +2739,10 @@ commander@^5.0.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
-commander@^8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
-  integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
+commander@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-9.1.0.tgz#a6b263b2327f2e188c6402c42623327909f2dbec"
+  integrity sha512-i0/MaqBtdbnJ4XQs4Pmyb+oFQl+q0lsAmokVUH92SlSw4fkeAcG3bVon+Qt7hmtF+u3Het6o4VgrcY3qAoEB6w==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -3062,10 +3062,10 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.3, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
-  integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
+debug@4, debug@4.3.4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
+  integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
   dependencies:
     ms "2.1.2"
 
@@ -4231,6 +4231,11 @@ get-caller-file@^2.0.1, get-caller-file@^2.0.5:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
+get-package-type@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
+  integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
+
 get-stream@^4.0.0, get-stream@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
@@ -5372,16 +5377,17 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-knex@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-1.0.4.tgz#b9db3c60d0e3a4af37239bb879244e50eb748124"
-  integrity sha512-cMQ81fpkVmr4ia20BtyrD3oPere/ir/Q6IGLAgcREKOzRVhMsasQ4nx1VQuDRJjqq6oK5kfcxmvWoYkHKrnuMA==
+knex@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-1.0.5.tgz#52c15d8969c7c8cab422de2d8ac2a6ac70a12b0c"
+  integrity sha512-EPEQNA0Yn5H5yoqKuCpdGn1EmispA/wS7OMaCAmirHlvHpiZUqcTerD9OU71t3nVLSnuXa0nYcnkUtRSPchsnA==
   dependencies:
     colorette "2.0.16"
-    commander "^8.3.0"
-    debug "4.3.3"
+    commander "^9.1.0"
+    debug "4.3.4"
     escalade "^3.1.1"
     esm "^3.2.25"
+    get-package-type "^0.1.0"
     getopts "2.3.0"
     interpret "^2.2.0"
     lodash "^4.17.21"
