@@ -111,7 +111,7 @@
     "@types/bootstrap": "^5.1.10",
     "@types/faker": "^6.6.9",
     "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.25",
+    "@types/node": "^18.7.16",
     "@types/react": "^18.0.6",
     "@types/react-bootstrap": "^1.0.1",
     "@types/react-bootstrap-table-next": "^4.0.18",
